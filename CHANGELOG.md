@@ -5,6 +5,14 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## contrib/bunx v0.2.1（2026-11-01）
+
+- testkit 修正两处让联动测试真正跑通的面：① **Services 驱动**——agg.Services
+  （事件订阅者等 lynx.Service）逐个 Init 后以 Start 阻塞协程运行
+  （watcher 在 Start 里订阅，此前无人驱动）；② **Events 复合发布**——
+  publishTelescope（先 BusPublisher 投递总线使订阅者联动，后
+  CapturePublisher 记录供断言；此前只捕获不投递，watcher 收不到事件）。
+
 ## contrib/bunx v0.2.0（2026-11-01）
 
 - **新子包 `testkit` 进程内全链测试夹具（ADR-0009 D13 蓝图桶⑦，fleetly

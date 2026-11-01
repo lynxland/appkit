@@ -29,6 +29,7 @@ import (
 	"github.com/lynx-go/lynx-start/compose"
 	"github.com/lynx-go/lynx-start/contrib/bunx/buntx"
 	"github.com/lynx-go/lynx-start/contrib/bunx/testutil"
+	eventsv1 "github.com/lynx-go/lynx-start/events"
 	"github.com/lynx-go/lynx/eventbus"
 	"github.com/spf13/viper"
 	"net/http/httptest"
@@ -87,14 +88,19 @@ func New(t testing.TB, opts Options) *Harness {
 	}
 	db := testutil.NewDB(t, chains...)
 
-	events := testutil.NewCapturePublisher()
 	bus := eventbus.NewMemoryBus(eventbus.Options{})
+	capture := testutil.NewCapturePublisher()
 
 	v := viper.New()
 	for k, val := range opts.Config {
 		v.Set(k, val)
 	}
 	cfg := lynx.NewViperConfig(v)
+
+	// Events 采用「先总线、后捕获」的复合发布：模块事件既到达订阅者
+	//（watcher 联动真实生效——生产形态 events.NewBusPublisher 的测试等价）
+	// 又被 CapturePublisher 记录供断言。
+	events := publishTelescope{inner: eventsv1.NewBusPublisher(bus), capture: capture}
 
 	deps := kernel.Deps{
 		DB:     db,
@@ -132,6 +138,20 @@ func New(t testing.TB, opts Options) *Harness {
 		t.Fatalf("testkit: chain: %v", err)
 	}
 
+	// 后台服务（事件订阅者、作业）：逐个 Init 后以 Start 阻塞协程驱动，
+	// 与宿主框架同语义（watcher 在 Start 里订阅）。ctx 取消即随测试关停。
+	for _, svc := range agg.Services {
+		if err := svc.Init(nil); err != nil { //nolint:staticcheck // Init 的 AppContext 参数在订阅型服务中未使用
+			t.Fatalf("testkit: service %s init: %v", svc.Name(), err)
+		}
+	}
+	svcCtx, svcCancel := context.WithCancel(ctx)
+	t.Cleanup(svcCancel)
+	for _, svc := range agg.Services {
+		svc := svc
+		go func() { _ = svc.Start(svcCtx) }()
+	}
+
 	srv, err := grpcapiserver.New(ctx, grpcapiserver.Config{
 		Policy:               set,
 		Services:             agg.Registrations,
@@ -161,7 +181,7 @@ func New(t testing.TB, opts Options) *Harness {
 	}
 	t.Cleanup(func() { _ = conn.Close() })
 
-	h := &Harness{Conn: conn, DB: db, Deps: deps, Events: events, Bus: bus}
+	h := &Harness{Conn: conn, DB: db, Deps: deps, Events: capture, Bus: bus}
 	if opts.Gateway {
 		hs := httptest.NewServer(srv.HTTPHandler())
 		t.Cleanup(hs.Close)
@@ -199,3 +219,18 @@ func (discardHandler) Enabled(context.Context, slog.Level) bool  { return false 
 func (discardHandler) Handle(context.Context, slog.Record) error { return nil }
 func (discardHandler) WithAttrs(attrs []slog.Attr) slog.Handler  { return discardHandler{} }
 func (discardHandler) WithGroup(name string) slog.Handler        { return discardHandler{} }
+
+// publishTelescope 是复合发布器：投递总线（订阅者联动）+ 捕获记录
+// （断言面）。任一侧失败即返回错误；捕获失败不影响投递结果语义
+// （反之亦然——以首个错误为准，保持 fail-fast）。
+type publishTelescope struct {
+	inner   eventsv1.Publisher
+	capture *testutil.CapturePublisher
+}
+
+func (p publishTelescope) Publish(ctx context.Context, ev eventsv1.Envelope) error {
+	if err := p.inner.Publish(ctx, ev); err != nil {
+		return err
+	}
+	return p.capture.Publish(ctx, ev)
+}
