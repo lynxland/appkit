@@ -25,6 +25,22 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## v0.6.1 (2026-11-01)
+
+- **新电池 `lock` / `blob` / `cache`（ADR-0009 D13 蓝图桶三件，单版交付）**：
+  - `lock` 分布式锁：`TryLocker` 端口（非阻塞获取+TTL 过期+唯一持有者
+    释放[compare-and-del]）+ `MemLocker` 单进程实现（惰性清扫）。分布式
+    形态（Redis SET NX+Lua / PG advisory lock）走端口适配——torchwood
+    RedisSemaphore 是现成蓝本。可重入明确不做（与 Redis/PG 原生一致）。
+  - `blob` 对象存储：`Store` 端口（Put/Get/Delete/List 前缀）+
+    `MemStore` 单进程实现（List 仅元信息）。S3/MinIO 适配走端口自带
+    （首个消费者时动工——D13 触发器）。Content-Addressed 由调用方
+    自行哈希为 Key。
+  - `cache` 缓存：`Cache` 端口（Get/Set/Delete+TTL）+ `MemCache` 单进程
+    实现 + **`LoadOrStore` singleflight 防击透**（并发同 Key 回源合并为
+    一次 loader 调用——手写内嵌实现，零外部依赖）。loader 返回
+    ErrNotFound 不写缓存（负缓存属调用方策略）。Redis 适配同触发器。
+
 ## contrib/bunx v0.3.0 (2026-11-01)
 
 - 新子包 `outbox`（PG/bun 实现，见根 v0.6.0 条目）；require lynx-start v0.6.0。
