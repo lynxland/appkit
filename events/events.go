@@ -29,6 +29,9 @@ type Envelope struct {
 	Module     string          `json:"module"`
 	OccurredAt time.Time       `json:"occurred_at"`
 	Payload    json.RawMessage `json:"payload,omitempty"`
+	// Aggregate 是可选聚合轴（如 "organization/<id>"；outbox 列级存储
+	// 便于按轴订阅/过滤，fleetly team 轴对应）。可空。
+	Aggregate string `json:"aggregate,omitempty"`
 }
 
 // TopicFor 返回事件名对应的 bus topic（模块前缀收敛，便于通配订阅：

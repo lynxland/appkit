@@ -25,6 +25,25 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## v0.6.0 (2026-11-01)
+
+- **新电池 `outbox` 事务性发件箱（ADR-0009 D12 考古桶⑩，数据访问族
+  收官，证据 2×：torchwood PG LISTEN/NOTIFY+SKIP LOCKED+死信/重领全套、
+  fleetly SQLite 事实流+SSE）**：
+  - 根 `outbox`（形状层，存储中立）：Record（Aggregate 轴提升为列——
+    events.Envelope 补 Aggregate 字段）、Sink 投递端口（transport 可插：
+    进程内 BusSink / watermill / Redis 自带适配）、Store 存储端口
+    （Append 同事务 / ClaimBatch SKIP LOCKED / MarkPublished/MarkFailed）、
+    Publisher（实现 events.Publisher——业务层零改动，注入 Deps.Events
+    即切换为事务性发件箱）。
+  - `contrib/bunx/outbox`（PG/bun 实现）：Store（buntx.Conn 参与调用方
+    事务=四件一拍；FOR UPDATE SKIP LOCKED 并发安全；超限死信）、
+    Pump（periodic 驱动——预算轮次/panic 恢复/WithoutCancel 全继承；
+    at-least-once 语义）、BusSink（内存 bus 投递）。迁移 SQL（部分索引
+    仅覆盖待发行）随包 embed。
+  - **四件一拍定典（D12）**：状态 CAS + tombstone + outbox 事件 + 审计
+    同一 uow.Runner 事务——缺任何一件即部分提交。入 outbox 包文档。
+
 ## v0.5.10 (2026-11-01)
 
 - errstatus：`Options.CodeMap`——区段码→gRPC code 的应用级覆盖表

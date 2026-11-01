@@ -29,6 +29,7 @@ var forbiddenImports = map[string][]string{
 	"storeerr":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"occ":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"row":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
+	"outbox":    {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"clock":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"errcode":   {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"idgen":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
