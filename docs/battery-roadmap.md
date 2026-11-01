@@ -34,7 +34,7 @@ dogfood 换 import 采纳 → 版本化发布**。
 idgen 增量（snowflake 时钟回拨自旋/APIKeySecret/NormalizeStrategy）、
 query Filter AST 裁剪版（纯组合器内核，DSL/pgvector 留应用）、testutil
 增量（advisory-lock 并行安全+SQLSTATE 瞬时重试+Eventually）、FakeClock
-hermetic 夹具（temp 真库+假时钟）、upsert/批量写 helper、Queue 端口
+hermetic 夹具（temp 真库+假时钟）、**bunx.Upsert ✅ v0.6.2**（ON CONFLICT 编译+列白名单）、**Queue ✅ v0.6.2**（Enqueue/Dequeue/Ack/Fail+MemQueue）
 （Enqueue/Dequeue/Ack/Trim at-least-once）。
 
 ## 蓝图桶（通用 web 基建缺口）

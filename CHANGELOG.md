@@ -25,6 +25,25 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## v0.6.2 (2026-11-01)
+
+- **第二梯队四件（ADR-0009 D13，单版交付）**：
+  - `semaphore` 计数信号量：`Semaphore` 端口（TryAcquire 非阻塞+release
+    回调）+ `InMemory`（chan 缓冲）+ `Noop`。与 lock（互斥）同族不同
+    形态——信号量限并发数。Redis SET NX 槽位+Lua 防误删走端口适配
+    （torchwood RedisSemaphore 蓝本）。
+  - `query` typed AST 组合器内核（torchwood pkg/query 裁剪版）：Filter
+    树（14 个算子叶子+And/Or 组合器同层展平）+ OrderBy/Desc + Validate
+    （深度/叶子值数量校验）+ Digest（确定性摘要——crud v2 游标绑定的
+    适配形态）。DSL 字符串解析与 pgvector/SQL 编译留应用侧。
+  - `bunx.Upsert`：ON CONFLICT DO UPDATE/NOTHING 编译 helper——
+    冲突键+覆写列白名单显式声明（torchwood UPDATE 零值列事故教训：
+    宁缺勿滥，不做裸全模型覆盖）。
+  - `queue` at-least-once 任务队列：`Queue` 端口（Enqueue/Dequeue/
+    Ack/Fail + visibility timeout 超时重投——用领取时原值不追溯）+
+    `MemQueue` 单进程实现（FIFO/topic 隔离/attempts 计数）。
+    Redis Stream/watermill 适配待消费者。
+
 ## v0.6.1 (2026-11-01)
 
 - **新电池 `lock` / `blob` / `cache`（ADR-0009 D13 蓝图桶三件，单版交付）**：
