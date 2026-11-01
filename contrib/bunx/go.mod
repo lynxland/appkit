@@ -3,7 +3,7 @@ module github.com/lynx-go/lynx-start/contrib/bunx
 go 1.26.8
 
 require (
-	github.com/lynx-go/lynx-start v0.5.2
+	github.com/lynx-go/lynx-start v0.5.3
 	github.com/uptrace/bun v1.3.0
 	github.com/uptrace/bun/dialect/pgdialect v1.3.0
 	github.com/uptrace/bun/driver/pgdriver v1.3.0
