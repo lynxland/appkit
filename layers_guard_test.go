@@ -41,6 +41,7 @@ var forbiddenImports = map[string][]string{
 	"events":    {"github.com/lynx-go/grpcapi", "uptrace"},
 	// grpcapi 电池
 	"contexts": {"uptrace"},
+	"idem":     {"uptrace"},
 	// 实现
 	"compose": {"github.com/lynx-go/grpcapi", "uptrace"},
 	"chain":   {"uptrace"},

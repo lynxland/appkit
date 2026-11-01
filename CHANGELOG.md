@@ -5,6 +5,19 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## v0.5.5 (2026-11-01)
+
+- **新电池 `idem` 幂等执法拦截器（ADR-0009 D13 考古桶⑤，证据 2×：
+  fleetly application/idem、torchwood 域内手搓）**：grpcapi 依赖电池
+  （interceptor.Stage，Order 45——authn 后 authz 前，fleetly 链位同构）。
+  `Store` 端口（Claim 原子裁决：Claimed/Replayed/InProgress/Mismatch）
+  + `MemStore`（单进程，惰性清扫）+ 指纹 sha256(FullMethod+确定性
+  proto 序列化) + principal 作用域（匿名回退 anon）+ 失败 Release 可
+  重试 + 回放经 dynamicpb 从缓存字节重建响应（进程内全局 proto 注册表；
+  空字节体如 google.protobuf.Empty 合法）。claim/replay 窗口缺省取
+  fleetly 实证值 90s/24h；分布式声明走 Store 适配（Redis，torchwood
+  semaphore 路线）。仅 unary；stream 直通（幂等语义不成立）。
+
 ## v0.5.4 (2026-11-01)
 
 - **新电池 `row` 行规约（ADR-0009 D12，dogfood 首循环④收官，证据 2×：
