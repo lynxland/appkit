@@ -29,7 +29,7 @@ dogfood 换 import 采纳 → 版本化发布**。
 | ⑨ | **守卫测试模板** | fleetly internal/guards ~60 个、torchwood import guard 家族 | testutil 守卫模板（import/uow/分层/租户过滤）；本仓 layers_guard_test.go 是首个自用样例 |
 | ⑩ | **goosekit 全局单表模式** | fleetly 单链单库（解锁 fleetly 采纳） | goosekit 支持非 per-module 的全局版本表模式 |
 
-分发器改进（随循环暴露）：add 安装期自动应用 item.json goDependencies（现为打印提示，离线友好优先——模块源码用到新电池版本时地板不抬会编译失败，本循环已靠抬 init 地板修复）。第二梯队（单侧成熟，等第二消费者）：semaphore（Redis SET-NX+Lua 防误删；
+分发器改进（随循环暴露）：~~add 安装期自动应用 item.json goDependencies~~ ✅ 已落地（cli v0.3.1，2026-11-01：go get 只升不降 + 纯文本兜底，mise 未 trust/离线可用）。第二梯队（单侧成熟，等第二消费者）：semaphore（Redis SET-NX+Lua 防误删；
 与 lock 同族）、secretbox（enc:v1 透明列加密，与 secretkey 互补）、
 idgen 增量（snowflake 时钟回拨自旋/APIKeySecret/NormalizeStrategy）、
 query Filter AST 裁剪版（纯组合器内核，DSL/pgvector 留应用）、testutil
