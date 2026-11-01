@@ -4,7 +4,7 @@ package kernel_test
 // 消费分层：电池层（严格中立）⊂ 契约层（grpcapi 冻结词汇+宿主类型）⊂ 偏向装配层。
 //
 //	严格中立电池禁 lynx / grpcapi / uptrace 直接 import：
-//	  uow crud storeerr occ clock errcode idgen jwt password secretkey goosekit
+//	  uow crud storeerr occ row clock errcode idgen jwt password secretkey goosekit
 //	宿主电池（配置/事件绑定 lynx）禁 grpcapi / uptrace：configkit events
 //	grpcapi 电池（principal 让渡）禁 uptrace：contexts
 //	compose 是纯算法：禁 grpcapi / uptrace
@@ -28,6 +28,7 @@ var forbiddenImports = map[string][]string{
 	"crud":      {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"storeerr":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"occ":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
+	"row":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"clock":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"errcode":   {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"idgen":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},

@@ -5,6 +5,20 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## v0.5.4 (2026-11-01)
+
+- **新电池 `row` 行规约（ADR-0009 D12，dogfood 首循环④收官，证据 2×：
+  fleetly FormatTime 单源+FakeClock 黄金时间戳+tombstone never-reuse、
+  torchwood nullzero 约定）**：`Stamps`（created_at/updated_at 列声明，
+  嵌入即满足 `Stamper`）+ `Tombstone`（deleted_at：非零=删、永不复用、
+  MarkDeleted 幂等不覆写首次时刻）+ `FormatTime/ParseTime`（规范文本
+  形态：RFC3339/UTC/秒精度——TEXT 存储单源与 crud keyset 游标时间轴
+  编码，字典序=时间序）。contrib/bunx 新增 `StampInsert/StampUpdate`
+  （显式戳记、时钟注入、非零不覆写）与 `SoftDelete/ExcludeTombstoned`。
+  **刻意不做魔法钩子**：bun 的 DB 级 QueryHook 拿不到模型、模型级
+  BeforeAppendModel 会把 ORM 词汇渗进中立契约、隐式时间源不可追溯——
+  显式一句式与 torchwood 列白名单/fleetly commitTransition 同哲学。
+
 ## v0.5.3 (2026-11-01)
 
 - **新电池 `occ` 乐观并发/状态机 CAS（ADR-0009 D12，dogfood 首循环③，证据
@@ -24,6 +38,11 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
 
 - 新增 `IfVersion`/`IfState`/`MapGuardedUpdate`（occ 适配，见根 v0.5.3 条目）；
   require lynx-start v0.5.3。
+
+## contrib/bunx v0.1.4 (2026-11-01)
+
+- 新增 `StampInsert/StampUpdate/SoftDelete/ExcludeTombstoned`（row 行规约
+  适配，见根 v0.5.4 条目）；require lynx-start v0.5.4。
 
 ## v0.5.2 (2026-11-01)
 
