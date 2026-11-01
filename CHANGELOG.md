@@ -5,6 +5,13 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## v0.5.7 (2026-11-01)
+
+- ratelimit：`Options.Key` 返回空串的语义定为**跳过限流**（未登记方法
+  不限流——方法级选配的惯用形态；v0.5.6 行为是共享空桶，属语义缺陷，
+  无消费者窗口内立即修正）。与 grpcapi 参考实现的「空串=默认键」有意
+  偏离，已文档化。
+
 ## v0.5.6 (2026-11-01)
 
 - **新电池 `ratelimit`（ADR-0009 D13 蓝图桶⑥）**：grpcapi 仅有固定窗口

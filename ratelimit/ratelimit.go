@@ -43,9 +43,10 @@ type Limiter interface {
 type Options struct {
 	// Limiter 限流器（必填）。
 	Limiter Limiter
-	// Key 分组键；nil = principal ID 优先、回落 client IP 概念由调用方
-	// 提供（grpcapi contextx.ClientInfo 在 ctx 时可用）——本包保持与
-	// grpcapi 参考实现同构的默认键序：principal → "anonymous"。
+	// Key 分组键；nil = principal → "anonymous"（grpcapi 参考实现同构）。
+	// 返回空串 = 本方法不限流（跳过）——方法级选配限流的惯用形态
+	//（与 grpcapi 参考实现的「空串=默认键」语义不同，属有意偏离：
+	// 选配场景下共享空桶是错误行为）。
 	Key func(ctx context.Context, fullMethod string) string
 	// OnLimited 被限流回调（计数/告警）；不得阻塞请求路径。
 	OnLimited func(ctx context.Context, key string, d Decision)
@@ -62,6 +63,9 @@ func interceptors(opts Options) (grpc.UnaryServerInterceptor, grpc.StreamServerI
 		key := defaultKey(ctx)
 		if opts.Key != nil {
 			key = opts.Key(ctx, fullMethod)
+			if key == "" {
+				return nil // 未登记方法：不限流
+			}
 		}
 		d := opts.Limiter.Allow(key, time.Now().UTC())
 		if d.Allowed {

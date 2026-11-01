@@ -121,6 +121,11 @@ func TestStageAllowsAndLimits(t *testing.T) {
 	if !found {
 		t.Error("RetryInfo detail missing")
 	}
+	// Key 返回空串 = 跳过（未登记方法不限流）。
+	skip := Stage(Options{Limiter: sw, Key: func(context.Context, string) string { return "" }})
+	if _, err := skip.Unary(context.Background(), nil, &grpc.UnaryServerInfo{FullMethod: "/x.Y/Z"}, h); err != nil {
+		t.Fatalf("skip: %v", err)
+	}
 	// 另一 key 不受影响。
 	st3 := Stage(Options{Limiter: sw, Key: func(context.Context, string) string { return "other" }})
 	if _, err := st3.Unary(context.Background(), nil, &grpc.UnaryServerInfo{FullMethod: "/x.Y/Z"}, h); err != nil {
