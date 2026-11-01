@@ -29,7 +29,7 @@ dogfood 换 import 采纳 → 版本化发布**。
 | ⑨ | **守卫测试模板** | fleetly internal/guards ~60 个、torchwood import guard 家族 | testutil 守卫模板（import/uow/分层/租户过滤）；本仓 layers_guard_test.go 是首个自用样例 |
 | ⑩ | **goosekit 全局单表模式** | fleetly 单链单库（解锁 fleetly 采纳） | goosekit 支持非 per-module 的全局版本表模式 |
 
-分发器改进（随循环暴露）：~~add 安装期自动应用 item.json goDependencies~~ ✅ 已落地（cli v0.3.1，2026-11-01：go get 只升不降 + 纯文本兜底，mise 未 trust/离线可用）。第二梯队（单侧成熟，等第二消费者）：semaphore（Redis SET-NX+Lua 防误删；
+分发器改进（随循环暴露）：~~add 安装期自动应用 item.json goDependencies~~ ✅ 已落地（cli v0.3.1，2026-11-01：go get 只升不降 + 纯文本兜底，mise 未 trust/离线可用）。第二梯队：**lock ✅ v0.6.1**（TryLocker+MemLocker；Redis/PG 适配待消费者）、**blob ✅ v0.6.1**（Store+MemStore；S3/MinIO 适配待消费者）、**cache ✅ v0.6.1**（Cache+MemCache+LoadOrStore singleflight；Redis 适配待消费者）、semaphore（Redis SET-NX+Lua 防误删；
 与 lock 同族）、secretbox（enc:v1 透明列加密，与 secretkey 互补）、
 idgen 增量（snowflake 时钟回拨自旋/APIKeySecret/NormalizeStrategy）、
 query Filter AST 裁剪版（纯组合器内核，DSL/pgvector 留应用）、testutil
@@ -44,9 +44,9 @@ hermetic 夹具（temp 真库+假时钟）、upsert/批量写 helper、Queue 端
 | ratelimit 限流 ✅ 核心已落地（v0.5.6：TokenBucket/SlidingWindow/Limiter 端口+Decision 投影面；Stage=RateLimitStage 包装，Order 40/RetryInfo 继承 grpcapi） | grpcapi 只有「参考实现」槽位；fleetly/torchwood 各有实现 | **demo 采纳已落地**（2026-11-01：组织创建 3/min 滑动窗口，突发 429+Retry-After: 60+库行数守恒，与 idem 共存）。剩余：Redis Limiter 适配 |
 | testkit 进程内全链 harness ✅ 核心已落地（contrib/bunx v0.2.0：Harness[bufconn gRPC+httptest REST 无端口]+Deps 组装+迁移链派生+Eventually） | fleetly apitest（bufconn+fake providers，1171 行蓝本）；模块生态刚需 | **demo 采纳已落地**（2026-11-01：test/e2e 三测全绿——gRPC 全链 register→login→me→org→task、REST gateway 同后端、**改密事件联动吊销 session**（Eventually 确定性等待 + 事件捕获双证）；v0.2.1 修正 Services 驱动与复合发布）。剩余：examples/ 活文档 |
 | webhook 出站交付 | torchwood webhooks 蓝本（签名+重试）；Stripe 式平台经典件 | HMAC 签名+退避重试+端点管理，骑 outbox/queue |
-| objectstore/blob 端口 | torchwood 对象存储+fleetly 内容寻址上传（双侧弱证据） | Put/Get/Presign/Delete 端口+mem 实现起步 |
+| objectstore/blob 端点 ✅ v0.6.1 | torchwood 对象存储+fleetly 内容寻址上传 | S3/MinIO 适配待消费者 |
 | cache 端口+singleflight | web 基建标配 | **触发器=首个消费者**（纪律优先于完备） |
-| lock 分布式锁 | torchwood advisory-lock 经验 | 与 semaphore 同族电池 |
+| lock 分布式锁 ✅ v0.6.1 | torchwood advisory-lock 经验 | Redis/PG 适配待消费者 |
 | 观测约定 | torchwood outbox 指标全家 | 模块贡献 metrics 命名规约+contrib/bunx 查询 otel hook |
 
 ## 投机桶（只记触发器，不预建）
