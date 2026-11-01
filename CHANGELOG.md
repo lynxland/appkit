@@ -25,6 +25,22 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## v0.5.9 (2026-11-01)
+
+- **errcode v2 注册表 + 新电池 `errstatus` 传输投影（ADR-0009 D14 定典
+  落地，dogfood 首循环⑨）**：
+  - `errcode.Registry`：登记期 fail-fast（空/非 UPPER_SNAKE reason、
+    canonical 重复、无任何消息）；locale 目录四级回退
+    （locale→en→Message→canonical 永不空串）；`Golden()` 确定性快照
+    （canonical 升序 + locale 行，漂移即审——fleetly codes.golden 对应）；
+    Detail 富信息（Suggestion/DocsURL）并入 v1 区段形态之上。
+  - `errstatus.Project`：errcode 区段哨兵→ErrorInfo{domain,reason,
+    metadata[suggestion/docs_url/message-locale]}；storeerr 哨兵语义码
+    （AlreadyExists/NotFound/FailedPrecondition/Unavailable+RetryInfo）；
+    字段违规 BadRequest 逐条；未识别透传 Unknown。gateway 侧零接线
+    （grpcapi DefaultErrorEncoder 已转 JSON 信封与 HTTP 头）。
+  - docs/api-shapes.md 全文定稿（D14 各条+机器校验两级说明）。
+
 ## v0.5.8 (2026-11-01)
 
 - **新电池 `periodic` 周期作业骨架（ADR-0009 D13 考古桶⑧，torchwood
