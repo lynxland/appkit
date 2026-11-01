@@ -19,7 +19,7 @@ dogfood 换 import 采纳 → 版本化发布**。
 | 优先 | 电池 | 证据 | 形态 |
 |---|---|---|---|
 | ① | **crud v2 多模式分页**（D11）✅ 核心已落地（v0.5.1：Spec/Parse[Filter]/Cursor/Predicates + bunx.ApplyPage，v1 标 Deprecated） | torchwood pkg/crud 同源逐字 + fleetly ADR-0026 反向选择 keyset | 剩余：模块面换装（notification/audit 等列表方法迁 v2，随模块版本）。**torchwood 已采纳**（2026-11-01：pkg/crud 中立基元转发层消费 v0.5.1；签名机械暂留本地随 v2 退役） |
-| ② | **storeerr 存储错误归一**（D12）✅ 核心已落地（v0.5.2：哨兵集/Wrap 多 %w/Classify 显式注入分类器）+ bunx 适配（v0.1.2：MapError/Classify，pgdriver 值类型坑收口） | **3×**：模块 pgdriver 23505 值类型坑、torchwood MapDocumentDBError、fleetly IsUniqueViolation 族 | 剩余：模块面换装（identity/organization 试点→v0.2.1）；torchwood docdb_errors 换映射底座 |
+| ② | **storeerr 存储错误归一**（D12）✅ 核心已落地（v0.5.2：哨兵集/Wrap 多 %w/Classify 显式注入分类器）+ bunx 适配（v0.1.2：MapError/Classify，pgdriver 值类型坑收口） | **3×**：模块 pgdriver 23505 值类型坑、torchwood MapDocumentDBError、fleetly IsUniqueViolation 族 | **模块试点已落地**（2026-11-01：identity/organization v0.2.1 换装 IsAlreadyExists(bunx.MapError)，真库负路径+完整 e2e 绿）。剩余：其余六模块随动；torchwood docdb_errors 换映射底座 |
 | ③ | **occ 乐观并发/状态机 CAS** | 2×：torchwood current_version+expected_version 字段违规回传、fleetly Transit（state∈from + generation 单调 + superseded_by） | version 列规约 + IfVersion 更新 helper + ErrConflict（与 storeerr 哨兵咬合）；写侧与 crud 读侧对偶 |
 | ④ | **行规约（时间/审计/tombstone 列）** | 2×：fleetly FormatTime 单源+FakeClock 黄金时间戳+tombstone never-reuse、torchwood nullzero+审计表 | 核心=规约类型+时钟格式约定（RFC3339 UTC）；contrib/bunx=BeforeAppendModel hooks 自动维护 |
 | ⑤ | **idem 幂等执法拦截器** | 2×：fleetly application/idem（claim/replay/fingerprint/principal 作用域）、torchwood documents 域内手搓 | grpcapi Stage 形态；Idempotency-Key 头协议 |
@@ -29,7 +29,7 @@ dogfood 换 import 采纳 → 版本化发布**。
 | ⑨ | **守卫测试模板** | fleetly internal/guards ~60 个、torchwood import guard 家族 | testutil 守卫模板（import/uow/分层/租户过滤）；本仓 layers_guard_test.go 是首个自用样例 |
 | ⑩ | **goosekit 全局单表模式** | fleetly 单链单库（解锁 fleetly 采纳） | goosekit 支持非 per-module 的全局版本表模式 |
 
-第二梯队（单侧成熟，等第二消费者）：semaphore（Redis SET-NX+Lua 防误删；
+分发器改进（随循环暴露）：add 安装期自动应用 item.json goDependencies（现为打印提示，离线友好优先——模块源码用到新电池版本时地板不抬会编译失败，本循环已靠抬 init 地板修复）。第二梯队（单侧成熟，等第二消费者）：semaphore（Redis SET-NX+Lua 防误删；
 与 lock 同族）、secretbox（enc:v1 透明列加密，与 secretkey 互补）、
 idgen 增量（snowflake 时钟回拨自旋/APIKeySecret/NormalizeStrategy）、
 query Filter AST 裁剪版（纯组合器内核，DSL/pgvector 留应用）、testutil
