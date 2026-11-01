@@ -5,6 +5,18 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## v0.5.2 (2026-11-01)
+
+- **新电池 `storeerr` 存储错误归一（ADR-0009 D12，dogfood 首循环②，证据 3×）**：
+  领域哨兵集（AlreadyExists/NotFound/Conflict/FKViolation/Busy）+ `Wrap`
+  （多 %w 双保留：哨兵与驱动原因同时 errors.Is 命中）+ 谓词族 +
+  `Classify`（哨兵语义优先，驱动分类器显式注入——无全局注册表；
+  唯一冲突类=永久、资源忙类=瞬时）。contrib/bunx 新增 pgdriver 适配：
+  `MapError`（SQLSTATE→哨兵，含 ErrNoRows→NotFound；pgdriver.Error 值类型
+  As 坑收口）与 `Classify`（SQLSTATE 白名单，瞬时集源自 torchwood 重试
+  经验：连接类/死锁/序列化失败/资源忙）。occ 电池（循环③）将复用
+  ErrConflict。
+
 ## v0.5.1 (2026-11-01)
 
 - **crud v2 多模式分页框架（ADR-0009 D11 定典落地，dogfood 首循环①）**：
