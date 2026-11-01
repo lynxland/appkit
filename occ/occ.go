@@ -29,7 +29,7 @@ func Next(current int64) int64 {
 }
 
 // Check 校验实际版本与期望一致；失配返回携带两侧值的 ErrConflict 包裹
-//（errors.Is 命中 storeerr.ErrConflict；消息含 have/want 便于投影）。
+// （errors.Is 命中 storeerr.ErrConflict；消息含 have/want 便于投影）。
 func Check(actual, expected int64) error {
 	if actual != expected {
 		return fmt.Errorf("%w: version mismatch (have %d, want %d)", storeerr.ErrConflict, actual, expected)
