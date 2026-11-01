@@ -5,6 +5,11 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## contrib/bunx v0.1.2 (2026-11-01)
+
+- 新增 `MapError`/`Classify`（storeerr 的 pgdriver 适配，见根 v0.5.2 条目）；
+  require lynx-start v0.5.2。
+
 ## v0.5.2 (2026-11-01)
 
 - **新电池 `storeerr` 存储错误归一（ADR-0009 D12，dogfood 首循环②，证据 3×）**：
