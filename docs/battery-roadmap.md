@@ -42,7 +42,7 @@ hermetic 夹具（temp 真库+假时钟）、upsert/批量写 helper、Queue 端
 | 电池 | 理由 | 备注 |
 |---|---|---|
 | ratelimit 限流 ✅ 核心已落地（v0.5.6：TokenBucket/SlidingWindow/Limiter 端口+Decision 投影面；Stage=RateLimitStage 包装，Order 40/RetryInfo 继承 grpcapi） | grpcapi 只有「参考实现」槽位；fleetly/torchwood 各有实现 | **demo 采纳已落地**（2026-11-01：组织创建 3/min 滑动窗口，突发 429+Retry-After: 60+库行数守恒，与 idem 共存）。剩余：Redis Limiter 适配 |
-| testkit 进程内全链 harness | fleetly apitest（bufconn+fake providers，1171 行蓝本）；模块生态刚需 | bufconn gRPC+REST 夹具+fake Deps 构造集+golden 工具；examples/ 活文档随此起步 |
+| testkit 进程内全链 harness ✅ 核心已落地（contrib/bunx v0.2.0：Harness[bufconn gRPC+httptest REST 无端口]+Deps 组装+迁移链派生+Eventually） | fleetly apitest（bufconn+fake providers，1171 行蓝本）；模块生态刚需 | 剩余：demo 采纳（进程内全链测试取代 curl 冒烟）；examples/ 活文档 |
 | webhook 出站交付 | torchwood webhooks 蓝本（签名+重试）；Stripe 式平台经典件 | HMAC 签名+退避重试+端点管理，骑 outbox/queue |
 | objectstore/blob 端口 | torchwood 对象存储+fleetly 内容寻址上传（双侧弱证据） | Put/Get/Presign/Delete 端口+mem 实现起步 |
 | cache 端口+singleflight | web 基建标配 | **触发器=首个消费者**（纪律优先于完备） |

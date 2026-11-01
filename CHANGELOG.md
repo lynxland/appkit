@@ -5,6 +5,18 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## contrib/bunx v0.2.0（2026-11-01）
+
+- **新子包 `testkit` 进程内全链测试夹具（ADR-0009 D13 蓝图桶⑦，fleetly
+  apitest 蓝本）**：一组 InstalledModule 在隔离测试库（真 PG 门控）上
+  装配——Deps 组装（CapturePublisher/内存 bus/viper Config）→
+  compose.AssembleAll → policy 集 → chain.DefaultChain →
+  grpcapiserver.New（fail-closed 校验全继承）→ GRPCServer()/
+  HTTPHandler() 逃生口经 bufconn/httptest **无端口**起服。测试拿到真实
+  gRPC ClientConn 与 REST base URL；`Eventually` 提供内存总线异步投递
+  的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
+  root 不反向引用）。
+
 ## v0.5.7 (2026-11-01)
 
 - ratelimit：`Options.Key` 返回空串的语义定为**跳过限流**（未登记方法
