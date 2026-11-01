@@ -5,6 +5,18 @@ lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性�
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## v0.5.6 (2026-11-01)
+
+- **新电池 `ratelimit`（ADR-0009 D13 蓝图桶⑥）**：grpcapi 仅有固定窗口
+  参考实现，本电池补齐——`TokenBucket`（burst+平滑补充，突发友好、
+  长期均值收敛补充率）与 `SlidingWindow`（精确时间戳环，消除固定窗口
+  边界突刺），`Limiter` 端口（Decision 含 Limit/Remaining 供
+  X-RateLimit-* 投影）+ 惰性清扫无后台协程。Stage 经
+  interceptor.RateLimitStage 包装：命名/Order 40 槽位/
+  ResourceExhausted+RetryInfo（gateway→Retry-After）继承 grpcapi 冻结
+  语义。分布式限流走端口自带适配（fail-open/closed 由适配器自决，
+  torchwood API key 失败节流教训）。
+
 ## v0.5.5 (2026-11-01)
 
 - **新电池 `idem` 幂等执法拦截器（ADR-0009 D13 考古桶⑤，证据 2×：

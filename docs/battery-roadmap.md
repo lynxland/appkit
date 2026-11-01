@@ -41,7 +41,7 @@ hermetic 夹具（temp 真库+假时钟）、upsert/批量写 helper、Queue 端
 
 | 电池 | 理由 | 备注 |
 |---|---|---|
-| ratelimit 限流 | grpcapi 只有「参考实现」槽位；fleetly/torchwood 各有实现 | 令牌桶+滑动窗口；进程内实现+分布式接口 |
+| ratelimit 限流 ✅ 核心已落地（v0.5.6：TokenBucket/SlidingWindow/Limiter 端口+Decision 投影面；Stage=RateLimitStage 包装，Order 40/RetryInfo 继承 grpcapi） | grpcapi 只有「参考实现」槽位；fleetly/torchwood 各有实现 | 剩余：demo 采纳试点；Redis Limiter 适配 |
 | testkit 进程内全链 harness | fleetly apitest（bufconn+fake providers，1171 行蓝本）；模块生态刚需 | bufconn gRPC+REST 夹具+fake Deps 构造集+golden 工具；examples/ 活文档随此起步 |
 | webhook 出站交付 | torchwood webhooks 蓝本（签名+重试）；Stripe 式平台经典件 | HMAC 签名+退避重试+端点管理，骑 outbox/queue |
 | objectstore/blob 端口 | torchwood 对象存储+fleetly 内容寻址上传（双侧弱证据） | Put/Get/Presign/Delete 端口+mem 实现起步 |
