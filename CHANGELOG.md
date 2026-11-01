@@ -25,6 +25,19 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## v0.5.8 (2026-11-01)
+
+- **新电池 `periodic` 周期作业骨架（ADR-0009 D13 考古桶⑧，torchwood
+  Periodic 泛化——其 worker 侧 12+ ticker 循环的单一实现，fleetly
+  engine.Loop 的 panic 恢复语义并入）**：`Periodic`（实现 lynx.Service，
+  可直挂 Assembly.Services）——ticker+select 循环、RunAtStart（重启补
+  窗口）/After（首轮延迟）、单轮预算
+  `WithTimeout(WithoutCancel(ctx), budget)`（**优雅关停不腰斩在途轮次**，
+  轮次在预算边界自然收束，幂等由下轮收敛）、单轮 panic 恢复续跑
+  （含栈日志）、关停期失败日志抑制。`RunnerService`（torchwood bootkit
+  泛化）：把 Run(ctx) error 型后台循环包成 lynx.Service——Start 阻塞
+  actor 契约、Stop 取消+有界排水。宿主电池层位（禁 grpcapi/uptrace）。
+
 ## v0.5.7 (2026-11-01)
 
 - ratelimit：`Options.Key` 返回空串的语义定为**跳过限流**（未登记方法
