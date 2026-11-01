@@ -25,6 +25,10 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## contrib/bunx v0.3.0 (2026-11-01)
+
+- 新子包 `outbox`（PG/bun 实现，见根 v0.6.0 条目）；require lynx-start v0.6.0。
+
 ## v0.6.0 (2026-11-01)
 
 - **新电池 `outbox` 事务性发件箱（ADR-0009 D12 考古桶⑩，数据访问族
