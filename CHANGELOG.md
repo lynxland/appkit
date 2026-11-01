@@ -25,6 +25,12 @@ tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-
   的确定性等待。定位于 contrib（偏向装配层的测试面：真 PG+bun 适配，
   root 不反向引用）。
 
+## v0.5.10 (2026-11-01)
+
+- errstatus：`Options.CodeMap`——区段码→gRPC code 的应用级覆盖表
+ （reason→code，未命中默认 InvalidArgument）。模块的语义码表经此声明，
+  投影底座统一负责 detail 挂载（模块面换装的前提——identity 首个消费者）。
+
 ## v0.5.9 (2026-11-01)
 
 - **errcode v2 注册表 + 新电池 `errstatus` 传输投影（ADR-0009 D14 定典

@@ -34,6 +34,10 @@ type Options struct {
 	Registry *errcode.Registry
 	// Locale 是消息 locale（空 → errcode.DefaultLocale）。
 	Locale string
+	// CodeMap 是区段码→gRPC code 的应用级覆盖表（reason→code）；
+	// 未命中时区段码默认 InvalidArgument。模块的语义码表在此声明，
+	// 投影底座统一负责 detail 挂载。
+	CodeMap map[string]codes.Code
 }
 
 // Project 把领域错误投影为 gRPC status：
@@ -86,7 +90,13 @@ func project(err error, opts Options) *status.Status {
 				metadata["message"] = opts.Registry.Message(info.Canonical(), locale)
 			}
 		}
-		st := status.New(codes.InvalidArgument, messageOr(err, info))
+		code := codes.InvalidArgument
+		if opts.CodeMap != nil {
+			if c, ok := opts.CodeMap[info.Reason]; ok {
+				code = c
+			}
+		}
+		st := status.New(code, messageOr(err, info))
 		if withDetails, derr := st.WithDetails(&errdetails.ErrorInfo{
 			Reason:   info.Reason,
 			Domain:   info.Domain,
