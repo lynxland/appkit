@@ -5,6 +5,7 @@ go 1.26.8
 require (
 	github.com/lynx-go/grpcapi v0.4.0
 	github.com/lynx-go/lynx v1.20.0
+	github.com/lynxland/appkit v0.7.0
 	github.com/spf13/viper v1.21.0
 	github.com/uptrace/bun v1.3.0
 	github.com/uptrace/bun/dialect/pgdialect v1.3.0
@@ -48,6 +49,7 @@ require (
 	go.opentelemetry.io/otel v1.47.0 // indirect
 	go.opentelemetry.io/otel/log v1.47.0 // indirect
 	go.opentelemetry.io/otel/metric v1.47.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.47.0 // indirect
 	go.opentelemetry.io/otel/trace v1.47.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect

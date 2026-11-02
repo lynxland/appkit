@@ -49,12 +49,12 @@ github.com/lynx-go/grpcapi/genproto v0.3.0 h1:0QuNp66jKV+AvuG+hN/ByC/9PvOcevaNwP
 github.com/lynx-go/grpcapi/genproto v0.3.0/go.mod h1:KCxDet6GpsDFsZmMfxT26fzxeRu1dmRzPFTqKrJUkSI=
 github.com/lynx-go/lynx v1.20.0 h1:qxYQxnvh/uMAoLZwE3Oc9ZM7yt/GnXTxxdySQ9DB0k4=
 github.com/lynx-go/lynx v1.20.0/go.mod h1:1/ICMKO0zAR7FD2ZFYkDp1kh6PtksttKm97371A71jA=
-github.com/lynx-go/lynx-start v0.6.0 h1:b2LTasxSNALd5xAuLgg3bY9nr4i0nITWpsgphAwCe8g=
-github.com/lynx-go/lynx-start v0.6.0/go.mod h1:PmbmrU+nWkW5TVGFJ6P3C5RWWzh90CjJqiu06tFLeIQ=
 github.com/lynx-go/lynx/contrib/cluster v1.0.0 h1:p87T4tb+lZ338xGF1+p/npAL/2vrVVwoJPWAxHC+pI8=
 github.com/lynx-go/lynx/contrib/cluster v1.0.0/go.mod h1:YDynUNHNAGz2DxQPwFhkmZhr9sozv/SaJKLJvLcDPgY=
 github.com/lynx-go/lynx/contrib/schedule v1.7.0 h1:4M6sqrudQbCduFK7aGdP/7YRQuo4ddbTyjo9yLa6I38=
 github.com/lynx-go/lynx/contrib/schedule v1.7.0/go.mod h1:/QH52KB4+FUsT/HOWxkYZpETkti306l7XyUSvscyFa8=
+github.com/lynxland/appkit v0.7.0 h1:1gKXkRvYm0bX3/UBbi3DgxTq96TCxSA18X6vrZQF3PY=
+github.com/lynxland/appkit v0.7.0/go.mod h1:5qjo2EiywxauhDEtZgJyFLWtKa5QSwD/2tPoW1jLzgc=
 github.com/mattn/go-isatty v0.0.24 h1:tGZZoVgT/KiqK1c8ocVLeDS8BSWMRd47J3Lbz7vsReI=
 github.com/mattn/go-isatty v0.0.24/go.mod h1:nMCL3Zebbrt45jsMDgnfIwz6ydEQApk5oEI3HqDio6A=
 github.com/mfridman/interpolate v0.0.2 h1:pnuTK7MQIxxFz1Gr+rjSIx9u7qVjf5VOoM/u6BbAxPY=
@@ -115,8 +115,8 @@ go.opentelemetry.io/otel/log v1.47.0 h1:cOTS1CcLbSQeZKanGJ+0JpF/+t4PELi3O3bbl2lq
 go.opentelemetry.io/otel/log v1.47.0/go.mod h1:9byitSQ5pLC6PpqwGXjqdMKya6ZTswHRZh2vvXT33nw=
 go.opentelemetry.io/otel/metric v1.47.0 h1:4PptaldXx3Eat1XjMZ68pPJEs5wrhlemctZE9a3UdWY=
 go.opentelemetry.io/otel/metric v1.47.0/go.mod h1:ADGSXxRrXM6bjbvLo535EstVFlPpPYZm4LBKixjDHwU=
-go.opentelemetry.io/otel/sdk v1.45.0 h1:4VVSMgQ83dUgW2aoX5f6JgLvHwIvzcuLnF9lUdCSpCw=
-go.opentelemetry.io/otel/sdk v1.45.0/go.mod h1:Sr40LgXV7DsKMMJMKOhUWOgMWTfAaqvm2kF0g7ilwuA=
+go.opentelemetry.io/otel/sdk v1.47.0 h1:zWXEr4j2lFefG87TU6Yg8a7ngfohIKFZHKp0Hf5hC6I=
+go.opentelemetry.io/otel/sdk v1.47.0/go.mod h1:VUc24kiOeoGsxG8G9ULx3fWKvB7jMhnGE8Oi607lgR0=
 go.opentelemetry.io/otel/trace v1.47.0 h1:JOjX/Oci8K94QHddo+bbfya/Ai/nf6/dt9ZfrFNWSrM=
 go.opentelemetry.io/otel/trace v1.47.0/go.mod h1:jNaSLa2PZEYFG6fRjJABAu+bw4FS08uDmPg28lTghu0=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=

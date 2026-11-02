@@ -6,6 +6,12 @@ appkit（v0.5.0 起为仓库根 module；v0.7.0 前名 lynx-start，module path
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
 
+## contrib/bunx v0.4.0（2026-11-02）
+
+- module path 更名 `github.com/lynxland/appkit/contrib/bunx`（ADR-0010）；
+  require `github.com/lynxland/appkit v0.7.0`；根包限定符 `kernel.` →
+  `appkit.`；测试 env `APPKIT_TEST_PG_DSN`（testutil）。
+
 ## v0.7.0 (2026-11-02)
 
 - **项目更名 lynx-start → appkit（ADR-0010）**：
