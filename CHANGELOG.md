@@ -1,9 +1,23 @@
-# Changelog — lynx-start
+# Changelog — appkit
 
-lynx-start（v0.5.0 起为仓库根 module）对外做 semver 承诺:破坏性变更升主版本
+appkit（v0.5.0 起为仓库根 module；v0.7.0 前名 lynx-start，module path
+`github.com/lynx-go/lynx-start`）对外做 semver 承诺:破坏性变更升主版本
 (0.x 阶段升 minor),向后兼容追加升 patch。条目按发布时间倒序。
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
+
+## v0.7.0 (2026-11-02)
+
+- **项目更名 lynx-start → appkit（ADR-0010）**：
+  - module path `github.com/lynxland/appkit`（嵌套子模块
+    `github.com/lynxland/appkit/contrib/bunx`，其版本 v0.4.0 起）。
+  - 根包名 `kernel` → `appkit`（推翻 ADR-0009 D2）：import 免显式别名，
+    `appkit.Deps`/`appkit.Module` 直接写；子包路径同名平移。
+  - 测试 env `LYNXSTART_TEST_PG_DSN` → `APPKIT_TEST_PG_DSN`（无兼容期，
+    修订 ADR-0009 D80/D10）。
+  - 迁移步骤见 UPGRADING.md；旧路径 tag 经 module proxy 缓存长期可得。
+  - 保留：`lynxstart-page-token-v1` HMAC 派生 purpose（改值作废在途
+    token，ADR-0010 D5）。
 
 ## contrib/bunx v0.2.1（2026-11-01）
 

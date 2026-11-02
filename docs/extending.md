@@ -1,6 +1,6 @@
-# 扩展与替换指南（Extending lynx-start）
+# 扩展与替换指南（Extending appkit）
 
-lynx-start 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风格
+appkit 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风格
 分页…）作为零配置默认，但**每个偏向都有公共接缝**——你可以在自己的
 仓库实现替换或扩展，永不需要 fork 本库（ADR-0009 D9）。
 
@@ -8,8 +8,8 @@ lynx-start 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风
 
 | 偏向 | 默认 | 接缝 | 替换姿势 |
 |---|---|---|---|
-| ORM | `contrib/bunx` | `kernel.Deps.DB` 是 `any`（ORM 中立句柄）+ `uow.Runner/Isolator` 接口 + `crud` 中立分页/排序基元 | 自写 contrib 式适配器（见下节） |
-| 迁移执行器 | `goosekit`（per-module 独立版本表） | `kernel.Module.Migrations` 只是中立的 `fs.FS` | 自写执行器消费同一 FS 约定 |
+| ORM | `contrib/bunx` | `appkit.Deps.DB` 是 `any`（ORM 中立句柄）+ `uow.Runner/Isolator` 接口 + `crud` 中立分页/排序基元 | 自写 contrib 式适配器（见下节） |
+| 迁移执行器 | `goosekit`（per-module 独立版本表） | `appkit.Module.Migrations` 只是中立的 `fs.FS` | 自写执行器消费同一 FS 约定 |
 | API 面 | grpcapi 冻结 SPI（嵌入契约层） | 范式词汇本身——**已声明的边界**：非 proto-first 项目请消费电池层（uow/crud/errcode/…均为独立可用的中立件） | 装配面中立化（Faces 挂点）记 revisit：出现真实非 proto-first 模块需求或 ConnectRPC 等新范式时再议 |
 | 事件 | `events.Publisher` + lynx eventbus | Publisher 是本仓接口 | 实现接口（outbox/跨进程形态见 battery-roadmap ⑧） |
 | 分页 | crud（多模式框架，D11） | crud 是**库级辅助件而非契约强制** | 自带分页实现（如 fleetly 的裸 keyset）不违范式 |
@@ -22,8 +22,8 @@ lynx-start 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风
 只需要：
 
 1. **独立 module**：`yourrepo/yourormx`，require
-   `github.com/lynx-go/lynx-start vX.Y.Z`。
-2. **类型化出口**：实现 `DB(deps kernel.Deps) (*your.DB, error)` 访问器
+   `github.com/lynxland/appkit vX.Y.Z`。
+2. **类型化出口**：实现 `DB(deps appkit.Deps) (*your.DB, error)` 访问器
    （约定 `Deps.DB` 装载你的句柄类型）；参考 contrib/bunx 的
    `DB()/MustDB()`。
 3. **事务实现**：实现 `uow.Runner`（必要时 `uow.Isolator`）——把
@@ -32,7 +32,7 @@ lynx-start 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风
 4. **列表执行**（可选）：参照 `bunx.List` 把 `crud.ListParams`/排序
    基元编译成你的查询形态。
 5. **测试基建**（可选）：PG/SQLite 门控测试夹具，参考
-   `contrib/bunx/testutil`（env `LYNXSTART_TEST_PG_DSN`）。
+   `contrib/bunx/testutil`（env `APPKIT_TEST_PG_DSN`）。
 
 ## 分层承诺（对你的约束，也是对你的保护）
 
@@ -44,7 +44,7 @@ lynx-start 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风
 
 ## 自建模块分发
 
-lynx-start 只定义契约；模块分发（registry/add/update）是姊妹项目
+appkit 只定义契约；模块分发（registry/add/update）是姊妹项目
 **lynx-go/lynx-mods**。registry 是 git 协议：`--registry` 接受任意 git
 URL（https/git@/ssh/file），第三方可自建私有 registry，模块经
 kernelConstraint 声明对契约版本的约束。

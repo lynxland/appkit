@@ -22,7 +22,7 @@ func TableName(module string) string {
 }
 
 // tableNameRe 是派生表名的就近防注入防御：只许小写字母/数字/下划线。
-// 与模块命名规约（kernel.ValidateName）相互独立——本包是 ORM 中立电池，
+// 与模块命名规约（appkit.ValidateName）相互独立——本包是 ORM 中立电池，
 // 不 import 根契约。
 var tableNameRe = regexp.MustCompile(`^[a-z0-9_]+$`)
 

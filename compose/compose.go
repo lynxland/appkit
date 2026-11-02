@@ -1,7 +1,7 @@
 // Package compose 承载模块装配协议的实现（ADR-0009 D6：根包只留契约）：
 // 启动前校验（名字唯一、依赖 DAG、事件目录交叉校验）与已装模块的逐个
 // 装配聚合。契约类型（Module/Deps/Assembly/InstalledModule/Aggregated）
-// 定义在根包 kernel；本包是纯算法实现——不 import 任何具体技术栈适配
+// 定义在根包 appkit；本包是纯算法实现——不 import 任何具体技术栈适配
 // （grpcapi 拦截链组装见 chain 包）。
 package compose
 
@@ -10,18 +10,18 @@ import (
 	"sort"
 	"strings"
 
-	kernel "github.com/lynx-go/lynx-start"
-	"github.com/lynx-go/lynx-start/events"
+	"github.com/lynxland/appkit"
+	"github.com/lynxland/appkit/events"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 // ValidateModules 对已装模块集合做启动前校验：名字合法且唯一、DependsOn
 // 指向已装模块、依赖图无环（domain 级 DAG 契约）。校验失败应在组合根即告警，
 // doctor 命令复用同一入口。
-func ValidateModules(mods []kernel.Module) error {
+func ValidateModules(mods []appkit.Module) error {
 	seen := make(map[string]bool, len(mods))
 	for _, m := range mods {
-		if err := kernel.ValidateName(m.Name); err != nil {
+		if err := appkit.ValidateName(m.Name); err != nil {
 			return err
 		}
 		if seen[m.Name] {
@@ -96,7 +96,7 @@ func ValidateModules(mods []kernel.Module) error {
 }
 
 // PolicyFiles 汇总全部模块的策略描述符（policy.FromFiles 的输入）。
-func PolicyFiles(mods []kernel.Module) []protoreflect.FileDescriptor {
+func PolicyFiles(mods []appkit.Module) []protoreflect.FileDescriptor {
 	var out []protoreflect.FileDescriptor
 	for _, m := range mods {
 		out = append(out, m.Policies...)
@@ -105,13 +105,13 @@ func PolicyFiles(mods []kernel.Module) []protoreflect.FileDescriptor {
 }
 
 // SortModules 按名字稳定排序（装配与展示的一致性）。
-func SortModules(mods []kernel.Module) {
+func SortModules(mods []appkit.Module) {
 	sort.Slice(mods, func(i, j int) bool { return mods[i].Name < mods[j].Name })
 }
 
 // Descriptors 抽取已装模块的静态描述（PolicyFiles 等静态聚合的输入）。
-func Descriptors(mods []kernel.InstalledModule) []kernel.Module {
-	out := make([]kernel.Module, 0, len(mods))
+func Descriptors(mods []appkit.InstalledModule) []appkit.Module {
+	out := make([]appkit.Module, 0, len(mods))
 	for _, m := range mods {
 		out = append(out, m.Module)
 	}
@@ -121,8 +121,8 @@ func Descriptors(mods []kernel.InstalledModule) []kernel.Module {
 // AssembleAll 校验已装模块集合（唯一性、依赖 DAG）并逐个装配、聚合。
 // 任何模块装配失败即整体失败（fail-fast：模块是应用的一部分，不允许
 // 半可用状态）。
-func AssembleAll(deps kernel.Deps, mods []kernel.InstalledModule) (*kernel.Aggregated, error) {
-	descriptors := make([]kernel.Module, 0, len(mods))
+func AssembleAll(deps appkit.Deps, mods []appkit.InstalledModule) (*appkit.Aggregated, error) {
+	descriptors := make([]appkit.Module, 0, len(mods))
 	for _, m := range mods {
 		if m.Assemble == nil {
 			return nil, fmt.Errorf("module %q: nil Assemble", m.Module.Name)
@@ -132,7 +132,7 @@ func AssembleAll(deps kernel.Deps, mods []kernel.InstalledModule) (*kernel.Aggre
 	if err := ValidateModules(descriptors); err != nil {
 		return nil, err
 	}
-	agg := &kernel.Aggregated{}
+	agg := &appkit.Aggregated{}
 	for _, m := range mods {
 		a, err := m.Assemble(deps)
 		if err != nil {

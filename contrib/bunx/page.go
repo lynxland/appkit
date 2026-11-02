@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/lynx-go/lynx-start/crud"
+	"github.com/lynxland/appkit/crud"
 	"github.com/uptrace/bun"
 )
 

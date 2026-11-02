@@ -5,11 +5,11 @@ import (
 	"log/slog"
 	"testing"
 
+	"github.com/lynxland/appkit"
+	"github.com/lynxland/appkit/chain"
 	grpcapiauthn "github.com/lynx-go/grpcapi/authn"
 	grpcapiinterceptor "github.com/lynx-go/grpcapi/interceptor"
 	grpcapipolicy "github.com/lynx-go/grpcapi/policy"
-	kernel "github.com/lynx-go/lynx-start"
-	"github.com/lynx-go/lynx-start/chain"
 	"google.golang.org/grpc"
 )
 
@@ -28,7 +28,7 @@ func TestDefaultChainNoStages(t *testing.T) {
 	if err != nil {
 		t.Fatalf("NewSet: %v", err)
 	}
-	ch, err := chain.DefaultChain(slog.Default(), set, &kernel.Aggregated{}, grpcapiauthn.Options{})
+	ch, err := chain.DefaultChain(slog.Default(), set, &appkit.Aggregated{}, grpcapiauthn.Options{})
 	if err != nil {
 		t.Fatalf("DefaultChain: %v", err)
 	}
@@ -46,7 +46,7 @@ func TestDefaultChainWithStages(t *testing.T) {
 	if err != nil {
 		t.Fatalf("NewSet: %v", err)
 	}
-	agg := &kernel.Aggregated{Stages: []grpcapiinterceptor.Stage{dummyStage(50)}}
+	agg := &appkit.Aggregated{Stages: []grpcapiinterceptor.Stage{dummyStage(50)}}
 	ch, err := chain.DefaultChain(slog.Default(), set, agg, grpcapiauthn.Options{})
 	if err != nil {
 		t.Fatalf("DefaultChain: %v", err)

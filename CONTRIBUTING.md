@@ -9,7 +9,7 @@
 一个机制从 roadmap 进入核心，需要齐三件：
 
 1. **测试**：含错误注入/负路径；DB 相关须有真库门控测试
-   （`LYNXSTART_TEST_PG_DSN`，无 DSN 静默 skip 是已知陷阱——本地复核必须设 DSN 实跑）。
+   （`APPKIT_TEST_PG_DSN`，无 DSN 静默 skip 是已知陷阱——本地复核必须设 DSN 实跑）。
 2. **dogfood 采纳**：至少一个 dogfood 项目（demo/torchwood/fleetly）换 import 实装。
 3. **文档**：godoc 包注释 + 必要的 Example 基线；范式变更走 ADR。
 
@@ -28,7 +28,7 @@
 ```bash
 mise install
 mise run lint        # golangci-lint + gofmt 漂移（大改动后建议 --new=false 清缓存复核）
-mise run test        # 需设 LYNXSTART_TEST_PG_DSN 才会真跑 PG 门控测试
+mise run test        # 需设 APPKIT_TEST_PG_DSN 才会真跑 PG 门控测试
 ```
 
 ## 发布 / Releasing

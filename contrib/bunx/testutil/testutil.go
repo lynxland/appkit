@@ -14,15 +14,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lynx-go/lynx-start/contrib/bunx"
-	"github.com/lynx-go/lynx-start/goosekit"
-	"github.com/lynx-go/lynx-start/idgen"
+	"github.com/lynxland/appkit/contrib/bunx"
+	"github.com/lynxland/appkit/goosekit"
+	"github.com/lynxland/appkit/idgen"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/driver/pgdriver"
 )
 
 // EnvPgDSN 是集成测试 Postgres DSN 的环境变量名。
-const EnvPgDSN = "LYNXSTART_TEST_PG_DSN"
+const EnvPgDSN = "APPKIT_TEST_PG_DSN"
 
 // PgDSN 返回测试数据库 DSN；未设置时返回空串。
 func PgDSN() string { return os.Getenv(EnvPgDSN) }

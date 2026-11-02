@@ -18,18 +18,18 @@ import (
 	"testing"
 	"time"
 
+	"github.com/lynxland/appkit"
+	"github.com/lynxland/appkit/chain"
+	"github.com/lynxland/appkit/compose"
+	"github.com/lynxland/appkit/contrib/bunx/buntx"
+	"github.com/lynxland/appkit/contrib/bunx/testutil"
+	eventsv1 "github.com/lynxland/appkit/events"
 	grpcapiauthn "github.com/lynx-go/grpcapi/authn"
 	grpcapiinterceptor "github.com/lynx-go/grpcapi/interceptor"
 	grpcapipolicy "github.com/lynx-go/grpcapi/policy"
 	grpcapiprotopolicy "github.com/lynx-go/grpcapi/policy/protopolicy"
 	grpcapiserver "github.com/lynx-go/grpcapi/server"
 	"github.com/lynx-go/lynx"
-	kernel "github.com/lynx-go/lynx-start"
-	"github.com/lynx-go/lynx-start/chain"
-	"github.com/lynx-go/lynx-start/compose"
-	"github.com/lynx-go/lynx-start/contrib/bunx/buntx"
-	"github.com/lynx-go/lynx-start/contrib/bunx/testutil"
-	eventsv1 "github.com/lynx-go/lynx-start/events"
 	"github.com/lynx-go/lynx/eventbus"
 	"github.com/spf13/viper"
 	"net/http/httptest"
@@ -43,7 +43,7 @@ import (
 // Options 是 Harness 配置。
 type Options struct {
 	// Installed 参与装配的已装模块（迁移链与策略集由此派生）。
-	Installed []kernel.InstalledModule
+	Installed []appkit.InstalledModule
 	// Config 是配置面（viper 键值；模块配置段如 identity.secret 在此给值）。
 	Config map[string]any
 	// Logger 测试日志；默认丢弃（slog.DiscardHandler 的等价物）。
@@ -64,14 +64,14 @@ type Harness struct {
 	// DB 是隔离测试库（t.Cleanup 整库 FORCE DROP）。
 	DB *bun.DB
 	// Deps 是装配用的共享依赖（Events=Capture 可断言）。
-	Deps kernel.Deps
+	Deps appkit.Deps
 	// Events 是事件捕获器（发布断言用）。
 	Events *testutil.CapturePublisher
 	// Bus 是内存事件总线（订阅侧）。
 	Bus eventbus.Bus
 }
 
-// New 装配并起服。PG 门控同 testutil 约定：无 LYNXSTART_TEST_PG_DSN
+// New 装配并起服。PG 门控同 testutil 约定：无 APPKIT_TEST_PG_DSN
 // 时整测跳过。
 func New(t testing.TB, opts Options) *Harness {
 	t.Helper()
@@ -102,7 +102,7 @@ func New(t testing.TB, opts Options) *Harness {
 	// 又被 CapturePublisher 记录供断言。
 	events := publishTelescope{inner: eventsv1.NewBusPublisher(bus), capture: capture}
 
-	deps := kernel.Deps{
+	deps := appkit.Deps{
 		DB:     db,
 		Tx:     buntx.New(db),
 		Events: events,

@@ -5,14 +5,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lynx-go/lynx-start/clock"
+	"github.com/lynxland/appkit/clock"
 )
 
 var master = "test-master-0123456789abcdef-0123456789abcdef"
 
 func TestSignVerifyRoundtrip(t *testing.T) {
 	c := clock.NewFake(time.Date(2026, 10, 24, 12, 0, 0, 0, time.UTC))
-	s := NewSigner(master, "access", "lynx-start-test", time.Hour, c)
+	s := NewSigner(master, "access", "appkit-test", time.Hour, c)
 	tok, err := s.Sign("user-1", map[string]string{"role": "member"})
 	if err != nil {
 		t.Fatalf("sign: %v", err)
@@ -24,7 +24,7 @@ func TestSignVerifyRoundtrip(t *testing.T) {
 		t.Fatalf("ttl mismatch: %v", tok.ExpiresAt.Sub(tok.Claims.IssuedAt))
 	}
 
-	v := NewVerifier(master, "access", "lynx-start-test")
+	v := NewVerifier(master, "access", "appkit-test")
 	claims, err := v.Verify(tok.Value, c.Now())
 	if err != nil {
 		t.Fatalf("verify: %v", err)

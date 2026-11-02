@@ -1,5 +1,46 @@
 # 升级指南（UPGRADING）
 
+## lynx-start v0.6.x（github.com/lynx-go/lynx-start）→ appkit v0.7.0（github.com/lynxland/appkit）
+
+v0.7.0 是改名迁移（ADR-0010）：module path、根包名、测试 env 三变更。
+
+### 1. import 路径与限定符
+
+| 旧（lynx-start v0.6.x） | 新（appkit v0.7.0） |
+|---|---|
+| `kernel "github.com/lynx-go/lynx-start"`（显式别名） | `"github.com/lynxland/appkit"`（免别名） |
+| `github.com/lynx-go/lynx-start/<子包>` | `github.com/lynxland/appkit/<子包>`（同名平移） |
+| `github.com/lynx-go/lynx-start/contrib/bunx` | `github.com/lynxland/appkit/contrib/bunx` |
+| `kernel.Deps` / `kernel.Module` 等 `kernel.` 限定符 | `appkit.Deps` / `appkit.Module` 等 `appkit.`（词边界替换，不伤 goosekit/configkit 等标识符） |
+
+### 2. go.mod
+
+```sh
+go mod edit -droprequire github.com/lynx-go/lynx-start \
+            -droprequire github.com/lynx-go/lynx-start/contrib/bunx \
+            -require github.com/lynxland/appkit@v0.7.0 \
+            -require github.com/lynxland/appkit/contrib/bunx@v0.4.0
+go mod tidy
+```
+
+（用 bun 适配的应用才需要第二条 require。）
+
+### 3. 测试 env
+
+`LYNXSTART_TEST_PG_DSN` → `APPKIT_TEST_PG_DSN`（无兼容期，ADR-0010 D4）
+——本仓与 lynx-mods 的 CI 同窗切换。
+
+### 4. 分发侧
+
+`lynx-mods` CLI 的 init/add 自 appkit 地板 v0.7.0 起生成新路径；已装
+应用 in-place 迁移＝本节 1/2 的替换 + tidy，`lynx-mods update/doctor`
+不受影响（模块源码前缀 `lynx-mods/modules/` 与本次根 module 改名无关）。
+
+旧 tag（`github.com/lynx-go/lynx-start@v0.6.2` 及以前）经 module proxy
+缓存长期可得，不急的下游可缓迁。
+
+---
+
 ## kernel v0.4.0（github.com/lynx-go/lynx-start/kernel）→ lynx-start v0.5.0（github.com/lynx-go/lynx-start）
 
 v0.5.0 是一次破坏性重排（0.x 阶段 minor 破坏承诺内）：仓库转型为

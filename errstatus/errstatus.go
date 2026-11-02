@@ -9,8 +9,8 @@ package errstatus
 
 import (
 	"errors"
-	"github.com/lynx-go/lynx-start/errcode"
-	"github.com/lynx-go/lynx-start/storeerr"
+	"github.com/lynxland/appkit/errcode"
+	"github.com/lynxland/appkit/storeerr"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

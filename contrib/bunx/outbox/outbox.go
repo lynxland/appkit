@@ -12,8 +12,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lynx-go/lynx-start/contrib/bunx/buntx"
-	"github.com/lynx-go/lynx-start/outbox"
+	"github.com/lynxland/appkit/contrib/bunx/buntx"
+	"github.com/lynxland/appkit/outbox"
 	"github.com/uptrace/bun"
 )
 

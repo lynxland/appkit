@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lynx-go/lynx-start/occ"
-	"github.com/lynx-go/lynx-start/storeerr"
+	"github.com/lynxland/appkit/occ"
+	"github.com/lynxland/appkit/storeerr"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"

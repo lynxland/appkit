@@ -3,8 +3,8 @@ package bunx
 import (
 	"database/sql"
 
-	"github.com/lynx-go/lynx-start/occ"
-	"github.com/lynx-go/lynx-start/storeerr"
+	"github.com/lynxland/appkit/occ"
+	"github.com/lynxland/appkit/storeerr"
 	"github.com/uptrace/bun"
 )
 

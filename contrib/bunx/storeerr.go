@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/lynx-go/lynx-start/storeerr"
+	"github.com/lynxland/appkit/storeerr"
 	"github.com/uptrace/bun/driver/pgdriver"
 )
 

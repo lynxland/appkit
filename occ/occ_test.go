@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lynx-go/lynx-start/storeerr"
+	"github.com/lynxland/appkit/storeerr"
 )
 
 func TestNext(t *testing.T) {

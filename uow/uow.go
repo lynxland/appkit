@@ -1,7 +1,7 @@
 // Package uow 定义工作单元端口（torchwood pkg/uow 的移植，去掉 RLS 执行身份）。
 //
 // 调用方用 Runner.Run 包住需要同一提交的写。fn 仍接收 ctx，适配器可从
-// ctx 读取事务；domain 端口不得把驱动类型写进签名。bun 实现见 contrib/bunx/buntx（lynx-start/contrib/bunx 子模块）。
+// ctx 读取事务；domain 端口不得把驱动类型写进签名。bun 实现见 contrib/bunx/buntx（appkit/contrib/bunx 子模块）。
 package uow
 
 import "context"

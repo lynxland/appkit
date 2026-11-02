@@ -1,11 +1,11 @@
-package kernel
+package appkit
 
 import (
 	"log/slog"
 
+	"github.com/lynxland/appkit/events"
+	"github.com/lynxland/appkit/uow"
 	"github.com/lynx-go/lynx"
-	"github.com/lynx-go/lynx-start/events"
-	"github.com/lynx-go/lynx-start/uow"
 	"github.com/lynx-go/lynx/eventbus"
 )
 

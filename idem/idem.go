@@ -25,7 +25,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/lynx-go/lynx-start/clock"
+	"github.com/lynxland/appkit/clock"
 )
 
 // State 是 claim 的裁决结果。

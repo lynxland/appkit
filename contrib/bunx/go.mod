@@ -1,11 +1,10 @@
-module github.com/lynx-go/lynx-start/contrib/bunx
+module github.com/lynxland/appkit/contrib/bunx
 
 go 1.26.8
 
 require (
 	github.com/lynx-go/grpcapi v0.4.0
 	github.com/lynx-go/lynx v1.20.0
-	github.com/lynx-go/lynx-start v0.6.0
 	github.com/spf13/viper v1.21.0
 	github.com/uptrace/bun v1.3.0
 	github.com/uptrace/bun/dialect/pgdialect v1.3.0

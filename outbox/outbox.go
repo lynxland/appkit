@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/lynx-go/lynx-start/events"
+	"github.com/lynxland/appkit/events"
 )
 
 // Record 是发件箱的存储形态（dialect 中立；PG/bun 表结构见

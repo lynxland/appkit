@@ -1,4 +1,4 @@
-package kernel
+package appkit
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 // InstalledModule/Assembly）。
 //
 // 模块源码暴露两样东西：`Module()`（本结构：静态描述）与
-// `Assemble(kernel.Deps) (kernel.Assembly, error)`（动态装配）。应用侧
+// `Assemble(appkit.Deps) (appkit.Assembly, error)`（动态装配）。应用侧
 // `internal/modules/modules.go` 的 Installed 列表登记两者，main.go 经
 // compose.AssembleAll 聚合。
 type Module struct {

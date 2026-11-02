@@ -1,9 +1,9 @@
 # 电池路线图（Battery Roadmap）
 
-lynx-start 作为 lynx 框架的 web 开发基础库，其电池沉淀遵循 ADR-0009 的
+appkit 作为 lynx 框架的 web 开发基础库，其电池沉淀遵循 ADR-0009 的
 三桶纪律：**考古桶**（dogfood 项目重复手搓的证据，最强信号）／**蓝图桶**
 （通用 web 基建缺口，须有消费者排期才动工）／**投机桶**（只记触发器，
-不预建）。每个电池走独立循环：**提取泛化 → 入 lynx-start（含测试）→
+不预建）。每个电池走独立循环：**提取泛化 → 入 appkit（含测试）→
 dogfood 换 import 采纳 → 版本化发布**。
 
 ## 准入与弃位纪律
@@ -63,7 +63,7 @@ hermetic 夹具（temp 真库+假时钟）、**bunx.Upsert ✅ v0.6.2**（ON CON
 （lynx contrib/cluster）、跨进程 bus（lynx contrib/watermill）、
 csrf/cors/SSE/WS/OpenAPI（grpcapi）、配置加载（lynx+configkit）、
 DI（手写装配，ADR-0005）、CLI 框架（lynx-go/commands，peer——归属
-revisit：若 lynx-start 应用 CLI 供给链成型再议并入）。
+revisit：若 appkit 应用 CLI 供给链成型再议并入）。
 
 ## 明确不上提（项目特有）
 
@@ -73,7 +73,7 @@ revisit 候选）、seq 可读 ID（平台语义）、SSE ticket、k3s/swarm pro
 
 ## dogfood 分工
 
-- **lynx-start-demo**：金丝雀——每次契约/电池变更的第一个应用面验证。
+- **appkit-demo**：金丝雀——每次契约/电池变更的第一个应用面验证。
 - **torchwood**：PG+bun 路径（contrib/bunx 主消费者）+ grpcapi v1.0
   验收场——crud/storeerr/occ/periodic/outbox 的主力验证项目。
 - **fleetly**：SQLite+database/sql 路径——核心不绑 bun 的酸测场

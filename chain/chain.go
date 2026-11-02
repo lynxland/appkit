@@ -10,11 +10,11 @@ import (
 	"log/slog"
 	"sort"
 
+	"github.com/lynxland/appkit"
 	grpcapiauthn "github.com/lynx-go/grpcapi/authn"
 	grpcapiauthz "github.com/lynx-go/grpcapi/authz"
 	grpcapiinterceptor "github.com/lynx-go/grpcapi/interceptor"
 	grpcapipolicy "github.com/lynx-go/grpcapi/policy"
-	kernel "github.com/lynx-go/lynx-start"
 )
 
 // DefaultChain 构建「标准链 + 模块贡献 Stage」。无 Stage 时返回
@@ -23,7 +23,7 @@ import (
 // authnOpts 传应用侧的认证选项（Enrichers 等）；IsAnonymous 由本函数按
 // 策略集覆写。AssembleWith 要求 Order 单调不减（sort.SliceStable 保证；
 // 模块 Stage 落在 clientinfo 与 authz/validate 之间，见 audit=50）。
-func DefaultChain(logger *slog.Logger, set *grpcapipolicy.Set, agg *kernel.Aggregated, authnOpts grpcapiauthn.Options) (*grpcapiinterceptor.Chain, error) {
+func DefaultChain(logger *slog.Logger, set *grpcapipolicy.Set, agg *appkit.Aggregated, authnOpts grpcapiauthn.Options) (*grpcapiinterceptor.Chain, error) {
 	if agg == nil || len(agg.Stages) == 0 {
 		return nil, nil
 	}

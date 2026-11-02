@@ -1,4 +1,4 @@
-module github.com/lynx-go/lynx-start
+module github.com/lynxland/appkit
 
 go 1.26.8
 

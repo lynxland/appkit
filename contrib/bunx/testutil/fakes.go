@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/lynx-go/lynx-start/events"
-	"github.com/lynx-go/lynx-start/uow"
+	"github.com/lynxland/appkit/events"
+	"github.com/lynxland/appkit/uow"
 )
 
 // 编译期断言:fake 形状与端口一致。

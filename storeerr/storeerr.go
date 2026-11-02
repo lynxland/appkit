@@ -1,5 +1,5 @@
 // Package storeerr 是存储错误归一（ADR-0009 D12 数据访问电池族之一，
-// 证据 3×：lynx-start 模块 pgdriver 23505 值类型坑、torchwood
+// 证据 3×：appkit 模块 pgdriver 23505 值类型坑、torchwood
 // MapDocumentDBError、fleetly IsUniqueViolation/IsForeignKeyViolation 族）：
 // 核心只定义领域哨兵与可重试分类——驱动映射归适配器（contrib/bunx 的
 // pgdriver/SQLSTATE 实现；非 bun 应用自带，fleetly 的 SQLite 映射同理），

@@ -73,7 +73,7 @@ var (
 // 真实验证产生可观测的时间差；调用方不应把返回值当常量缓存跨进程使用。
 func DummyHash() (string, error) {
 	dummyOnce.Do(func() {
-		dummy, dummyErr = Hash("lynx-start-dummy-target")
+		dummy, dummyErr = Hash("appkit-dummy-target")
 	})
 	return dummy, dummyErr
 }

@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"time"
 
+	"github.com/lynxland/appkit/outbox"
+	"github.com/lynxland/appkit/periodic"
 	"github.com/lynx-go/lynx"
-	"github.com/lynx-go/lynx-start/outbox"
-	"github.com/lynx-go/lynx-start/periodic"
 )
 
 // PumpOptions 是泵配置。

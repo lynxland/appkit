@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lynx-go/lynx-start/row"
+	"github.com/lynxland/appkit/row"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"

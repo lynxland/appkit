@@ -16,7 +16,7 @@ package occ
 import (
 	"fmt"
 
-	"github.com/lynx-go/lynx-start/storeerr"
+	"github.com/lynxland/appkit/storeerr"
 )
 
 // Next 返回下一版本。约定：版本从 1 起、单调递增（current<=0 视为尚未

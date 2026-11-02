@@ -5,12 +5,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lynx-go/lynx-start/contrib/bunx/buntx"
-	outboximpl "github.com/lynx-go/lynx-start/contrib/bunx/outbox"
-	"github.com/lynx-go/lynx-start/contrib/bunx/outbox/migrations"
-	"github.com/lynx-go/lynx-start/contrib/bunx/testutil"
-	"github.com/lynx-go/lynx-start/events"
-	outboxshape "github.com/lynx-go/lynx-start/outbox"
+	"github.com/lynxland/appkit/contrib/bunx/buntx"
+	outboximpl "github.com/lynxland/appkit/contrib/bunx/outbox"
+	"github.com/lynxland/appkit/contrib/bunx/outbox/migrations"
+	"github.com/lynxland/appkit/contrib/bunx/testutil"
+	"github.com/lynxland/appkit/events"
+	outboxshape "github.com/lynxland/appkit/outbox"
 	"github.com/uptrace/bun"
 )
 

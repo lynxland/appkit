@@ -1,6 +1,6 @@
-# lynx-start
+# appkit
 
-[![CI](https://github.com/lynx-go/lynx-start/actions/workflows/ci.yml/badge.svg)](https://github.com/lynx-go/lynx-start/actions/workflows/ci.yml)
+[![CI](https://github.com/lynxland/appkit/actions/workflows/ci.yml/badge.svg)](https://github.com/lynxland/appkit/actions/workflows/ci.yml)
 
 **lynx 框架的 web 开发基础库**：以装配契约（Module/Assembly/Deps）与电池子包
 （事务/分页/错误码/事件/迁移/鉴权原语…）规范基于 lynx 的后端应用的统一开发
@@ -12,7 +12,7 @@ primitives…) that standardize how lynx-based Go backends are built — the sha
 base for our own projects and open-source infrastructure for anyone.
 
 > 找「把业务模块以源码装进应用」的 shadcn 式分发工具（init/add/update）？
-> 它已迁至姊妹项目 **[lynx-go/lynx-mods](https://github.com/lynx-go/lynx-mods)**
+> 它已迁至姊妹项目 **[lynxland/lynx-mods](https://github.com/lynxland/lynx-mods)**
 > （CLI、registry、8 个业务模块）。本仓只保留范式基座：模块实现的是这里的契约。
 > Looking for the shadcn-style module distribution (init/add/update)?
 > It moved to **lynx-mods**. This repo keeps the paradigm base: modules
@@ -22,19 +22,19 @@ base for our own projects and open-source infrastructure for anyone.
 
 ```
 lynx （宿主框架：生命周期/传输/配置/事件总线）
-  └─ lynx-start （本仓：web 开发基础库 = 契约 + 电池 + contrib 适配）   ← semver
+  └─ appkit （本仓：web 开发基础库 = 契约 + 电池 + contrib 适配）   ← semver
        ├─ 依赖 grpcapi （peer：proto-first API 规范层，冻结 SPI）
        └─ lynx-mods （模块分发：registry + 安装 CLI + 8 业务模块）→ 依赖本仓契约
 ```
 
-dogfood 序列：lynx-start-demo（金丝雀）→ torchwood（PG+bun 路径）→
+dogfood 序列：appkit-demo（金丝雀）→ torchwood（PG+bun 路径）→
 fleetly（SQLite+database/sql 路径，验证核心不绑 ORM）。
 
 ## 结构（What's inside）
 
 | 包 | 职责 | 分层 |
 |---|---|---|
-| `kernel`（根包） | 装配契约：Module/Deps/Assembly/InstalledModule/Aggregated——纯契约，无实现 | 契约层（嵌 grpcapi 冻结 SPI + lynx 宿主类型） |
+| `appkit`（根包） | 装配契约：Module/Deps/Assembly/InstalledModule/Aggregated——纯契约，无实现 | 契约层（嵌 grpcapi 冻结 SPI + lynx 宿主类型） |
 | `compose` / `chain` | 装配协议实现：DAG 校验/事件目录交叉校验/聚合；grpcapi 标准拦截链组装 | 实现 |
 | `uow` `crud` `clock` `errcode` `idgen` `jwt` `password` `secretkey` `goosekit` | 公共模式电池：事务端口、分页与排序基元、错误码区段、迁移隔离… | **严格中立**（零 lynx/grpcapi/ORM 依赖，守卫测试固化） |
 | `configkit` `events` `contexts` | 配置分段、事件信封、Principal 语境 | 宿主/grpcapi 依赖 |
@@ -49,8 +49,8 @@ fleetly（SQLite+database/sql 路径，验证核心不绑 ORM）。
 
 ```go
 import (
-    kernel  "github.com/lynx-go/lynx-start"
-    "github.com/lynx-go/lynx-start/compose"
+    "github.com/lynxland/appkit"
+    "github.com/lynxland/appkit/compose"
 )
 
 // 应用组合根：登记已装模块，聚合装配产物
@@ -58,8 +58,9 @@ agg, err := compose.AssembleAll(deps, modules.Installed)
 ```
 
 模块的分发安装（init/add/update/doctor）见
-[lynx-mods](https://github.com/lynx-go/lynx-mods)；写业务模块见其
-module-authoring 指南；升级到 v0.5.0 见 [UPGRADING.md](UPGRADING.md)。
+[lynx-mods](https://github.com/lynxland/lynx-mods)；写业务模块见其
+module-authoring 指南；改名迁移（lynx-start → appkit，v0.7.0）与历史升级见
+[UPGRADING.md](UPGRADING.md)。
 
 ## 开放性（Opinionated defaults, open seams）
 
@@ -84,7 +85,7 @@ API wire 形态规范：[docs/api-shapes.md](docs/api-shapes.md)。
 - 不做 API 规范层——policy/网关/鉴权拦截归 [grpcapi](https://github.com/lynx-go/grpcapi)。
 - 核心不绑单一 ORM/数据库方言（bun 适配在 contrib，其他自带）。
 - 不做跨进程事件/分布式（outbox 在路线图，跨进程 bus 用 lynx watermill）。
-- Kernel 无租户预设（软多租户横切约定见 lynx-mods ADR）。
+- 根包无租户预设（软多租户横切约定见 lynx-mods ADR）。
 
 Apache-2.0。破坏性变更遵守 [UPGRADING.md](UPGRADING.md)；安全披露见
 [SECURITY.md](SECURITY.md)。

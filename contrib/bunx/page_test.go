@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lynx-go/lynx-start/crud"
+	"github.com/lynxland/appkit/crud"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"

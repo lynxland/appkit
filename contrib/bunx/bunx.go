@@ -10,8 +10,8 @@ import (
 	"database/sql"
 	"fmt"
 
-	kernel "github.com/lynx-go/lynx-start"
-	"github.com/lynx-go/lynx-start/crud"
+	"github.com/lynxland/appkit"
+	"github.com/lynxland/appkit/crud"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
@@ -44,7 +44,7 @@ func OpenDB(dsn string, opts Options) (*bun.DB, error) {
 
 // DB 从 Deps 取出 *bun.DB。Deps.DB 是 ORM 中立句柄（any），bun 应用的
 // 具体类型由本适配包约定；类型不符即报错（装配错配应在组合根暴露）。
-func DB(deps kernel.Deps) (*bun.DB, error) {
+func DB(deps appkit.Deps) (*bun.DB, error) {
 	db, ok := deps.DB.(*bun.DB)
 	if !ok {
 		return nil, fmt.Errorf("bunx: deps.DB is %T, want *bun.DB", deps.DB)
@@ -53,7 +53,7 @@ func DB(deps kernel.Deps) (*bun.DB, error) {
 }
 
 // MustDB 同 DB，但类型不符时 panic——仅供组合根装配期使用。
-func MustDB(deps kernel.Deps) *bun.DB {
+func MustDB(deps appkit.Deps) *bun.DB {
 	db, err := DB(deps)
 	if err != nil {
 		panic(err)

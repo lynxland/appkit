@@ -1,4 +1,4 @@
-# lynx-start 开发工具链与任务（mise-en-place）
+# appkit 开发工具链与任务（mise-en-place）
 #
 #   mise install          安装钉版工具链（go / buf / golangci-lint）
 #   mise tasks            列出全部任务
@@ -14,9 +14,9 @@ golangci-lint = "2.12.2"   # 与 torchwood 同款已验证版本
 shell = "sh -o errexit -c"
 
 [tasks.build]
-description = "构建全部模块（kernel / contrib）"
+description = "构建全部模块（根 / contrib）"
 run = '''
-for d in kernel contrib/bunx; do
+for d in . contrib/bunx; do
   [ -f "$d/go.mod" ] || continue
   echo "== build $d"
   (cd "$d" && go build ./...)
@@ -26,7 +26,7 @@ done
 [tasks.test]
 description = "全部模块测试"
 run = '''
-for d in kernel contrib/bunx; do
+for d in . contrib/bunx; do
   [ -f "$d/go.mod" ] || continue
   echo "== test $d"
   (cd "$d" && go test ./...)
@@ -36,7 +36,7 @@ done
 [tasks.lint]
 description = "golangci-lint 全部模块 + gofmt 漂移检查"
 run = '''
-for d in kernel contrib/bunx; do
+for d in . contrib/bunx; do
   [ -f "$d/go.mod" ] || continue
   echo "== lint $d"
   (cd "$d" && golangci-lint run ./... && test -z "$(gofmt -l .)")

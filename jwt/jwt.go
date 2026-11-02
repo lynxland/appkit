@@ -1,6 +1,6 @@
 // Package jwt 提供最小 HS256 JWT 签发与验证（标准库实现，无外部依赖）。
 // 密钥经 secretkey.Derive(master, purpose) 域隔离——一个 purpose 的令牌
-// 在其他 purpose 下不可验证。签发依赖 kernel/clock 注入时间源。
+// 在其他 purpose 下不可验证。签发依赖 appkit/clock 注入时间源。
 //
 // 面向 identity/session 类模块的访问令牌与轮换令牌； grpcapi 的
 // authn/jwt 负责请求侧解析，本包补齐签发侧。
@@ -16,9 +16,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lynx-go/lynx-start/clock"
-	"github.com/lynx-go/lynx-start/idgen"
-	"github.com/lynx-go/lynx-start/secretkey"
+	"github.com/lynxland/appkit/clock"
+	"github.com/lynxland/appkit/idgen"
+	"github.com/lynxland/appkit/secretkey"
 )
 
 // Claims 是受支持的标准声明 + 自定义字符串声明集。

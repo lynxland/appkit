@@ -1,4 +1,4 @@
-package kernel_test
+package appkit_test
 
 // 分层守卫（ADR-0009 D6/D9）：电池分层的机器固化，学 fleetly guards 范式。
 // 消费分层：电池层（严格中立）⊂ 契约层（grpcapi 冻结词汇+宿主类型）⊂ 偏向装配层。
@@ -43,7 +43,7 @@ var forbiddenImports = map[string][]string{
 	"jwt":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"password":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
 	"secretkey": {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"goosekit":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace", "github.com/lynx-go/lynx-start"}, // 也不许 import 根契约（保持可被任意迁移执行方独立消费）
+	"goosekit":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace", "github.com/lynxland/appkit"}, // 也不许 import 根契约（保持可被任意迁移执行方独立消费）
 	// 宿主电池
 	"configkit": {"github.com/lynx-go/grpcapi", "uptrace"},
 	"events":    {"github.com/lynx-go/grpcapi", "uptrace"},
@@ -57,7 +57,7 @@ var forbiddenImports = map[string][]string{
 	// 实现
 	"compose": {"github.com/lynx-go/grpcapi", "uptrace"},
 	"chain":   {"uptrace"},
-	// 根包（目录 "." = package kernel 契约文件）
+	// 根包（目录 "." = package appkit 契约文件）
 	".": {"uptrace"},
 }
 
@@ -80,7 +80,7 @@ func TestLayerGuard(t *testing.T) {
 			for _, imp := range file.Imports {
 				p := strings.Trim(imp.Path.Value, `"`)
 				for _, bad := range forbidden {
-					// 斜杠边界匹配：`…/lynx` 不误伤 `…/lynx-start`
+					// 斜杠边界匹配：前缀命中必须落在完整路径段边界
 					if p == bad || strings.HasPrefix(p, bad+"/") {
 						t.Errorf("%s 违反分层（ADR-0009 D6）：禁止 import %s", path, p)
 					}
