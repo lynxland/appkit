@@ -1,5 +1,32 @@
 # 升级指南（UPGRADING）
 
+## appkit v0.7.x → v0.8.0（上游依赖迁 lynxland）
+
+GitHub 机构 `lynx-go` 更名 `lynxland`，appkit 的上游依赖随之换 module path；
+appkit 自身的 import 路径不变，API 面零变化。
+
+| 旧 | 新（首个可拉取版本） |
+| --- | --- |
+| `github.com/lynx-go/lynx/...` | `github.com/lynxland/lynx/...`（v1.21.0） |
+| `github.com/lynx-go/grpcapi/...` | `github.com/lynxland/grpcapi/...`（v0.5.0；genproto v0.4.0） |
+| `github.com/lynx-go/commands` | `github.com/lynxland/commands`（v0.4.0） |
+| BSR `buf.build/lynx-go/grpcapi` | `buf.build/lynxland/grpcapi` |
+
+旧版本在新路径下不可解析（其 go.mod 声明旧路径），import 替换与 require
+抬版必须同批完成：
+
+```sh
+# ① 全局替换 import 路径（上表三行）后：
+go get github.com/lynxland/appkit@v0.8.0 github.com/lynxland/lynx@v1.21.0 \
+       github.com/lynxland/grpcapi@v0.5.0
+go mod tidy
+# ② buf.yaml 的 deps 换 buf.build/lynxland/grpcapi 后：
+buf dep update && buf generate
+```
+
+proto 生成物须重新 `buf generate`，不要文本替换——descriptor 内嵌
+go_package，串长变化会让长度前缀失配。
+
 ## lynx-start v0.6.x（github.com/lynx-go/lynx-start）→ appkit v0.7.0（github.com/lynxland/appkit）
 
 v0.7.0 是改名迁移（ADR-0010）：module path、根包名、测试 env 三变更。

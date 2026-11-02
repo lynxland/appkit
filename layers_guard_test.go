@@ -25,29 +25,29 @@ import (
 // forbiddenImports 按包声明禁止的直接 import 前缀。
 var forbiddenImports = map[string][]string{
 	// 严格中立电池
-	"uow":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"crud":      {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"storeerr":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"occ":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"row":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"outbox":    {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"lock":      {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"blob":      {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"cache":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"semaphore": {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"query":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"queue":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"clock":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"errcode":   {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"idgen":     {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"jwt":       {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"password":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"secretkey": {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace"},
-	"goosekit":  {"github.com/lynx-go/lynx", "github.com/lynx-go/grpcapi", "uptrace", "github.com/lynxland/appkit"}, // 也不许 import 根契约（保持可被任意迁移执行方独立消费）
+	"uow":       {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"crud":      {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"storeerr":  {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"occ":       {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"row":       {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"outbox":    {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"lock":      {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"blob":      {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"cache":     {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"semaphore": {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"query":     {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"queue":     {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"clock":     {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"errcode":   {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"idgen":     {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"jwt":       {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"password":  {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"secretkey": {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace"},
+	"goosekit":  {"github.com/lynxland/lynx", "github.com/lynxland/grpcapi", "uptrace", "github.com/lynxland/appkit"}, // 也不许 import 根契约（保持可被任意迁移执行方独立消费）
 	// 宿主电池
-	"configkit": {"github.com/lynx-go/grpcapi", "uptrace"},
-	"events":    {"github.com/lynx-go/grpcapi", "uptrace"},
-	"periodic":  {"github.com/lynx-go/grpcapi", "uptrace"},
+	"configkit": {"github.com/lynxland/grpcapi", "uptrace"},
+	"events":    {"github.com/lynxland/grpcapi", "uptrace"},
+	"periodic":  {"github.com/lynxland/grpcapi", "uptrace"},
 	// grpcapi 电池
 	"contexts":  {"uptrace"},
 	"errstatus": {"uptrace"},
@@ -55,7 +55,7 @@ var forbiddenImports = map[string][]string{
 	"ratelimit": {"uptrace"},
 	// 宿主电池
 	// 实现
-	"compose": {"github.com/lynx-go/grpcapi", "uptrace"},
+	"compose": {"github.com/lynxland/grpcapi", "uptrace"},
 	"chain":   {"uptrace"},
 	// 根包（目录 "." = package appkit 契约文件）
 	".": {"uptrace"},

@@ -6,7 +6,7 @@ package configkit
 import (
 	"fmt"
 
-	"github.com/lynx-go/lynx"
+	"github.com/lynxland/lynx"
 )
 
 // LoadSection 把 c 的 key 段解码进 out。defaults 先执行（落零值缺省），

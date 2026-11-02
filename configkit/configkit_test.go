@@ -3,7 +3,7 @@ package configkit
 import (
 	"testing"
 
-	"github.com/lynx-go/lynx/lynxtest"
+	"github.com/lynxland/lynx/lynxtest"
 )
 
 type demoCfg struct {

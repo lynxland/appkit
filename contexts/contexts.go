@@ -8,7 +8,7 @@ package contexts
 import (
 	"context"
 
-	"github.com/lynx-go/grpcapi/principal"
+	"github.com/lynxland/grpcapi/principal"
 )
 
 // FromPrincipal 返回 ctx 中的 Principal；未认证请求 ok=false（匿名面）。

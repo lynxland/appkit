@@ -3,7 +3,7 @@
 #   test        全模块单测 + 真实 Postgres 门控测试（APPKIT_TEST_PG_DSN，
 #               归 contrib/bunx/testutil——改名定典见 ADR-0010）
 #   vuln        govulncheck（对齐 grpcapi 生态基线；不含 gosec，随安全线推进）
-# 模块分发侧（proto-drift / e2e 组合矩阵）随 registry 迁至 lynx-go/lynx-mods。
+# 模块分发侧（proto-drift / e2e 组合矩阵）随 registry 迁至 lynxland/lynx-mods。
 name: CI
 
 on:

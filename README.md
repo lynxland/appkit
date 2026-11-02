@@ -81,8 +81,8 @@ API wire 形态规范：[docs/api-shapes.md](docs/api-shapes.md)。
 
 ## 非目标（Non-goals）
 
-- 不做运行时框架——生命周期/传输/服务发现归 [lynx](https://github.com/lynx-go/lynx)。
-- 不做 API 规范层——policy/网关/鉴权拦截归 [grpcapi](https://github.com/lynx-go/grpcapi)。
+- 不做运行时框架——生命周期/传输/服务发现归 [lynx](https://github.com/lynxland/lynx)。
+- 不做 API 规范层——policy/网关/鉴权拦截归 [grpcapi](https://github.com/lynxland/grpcapi)。
 - 核心不绑单一 ORM/数据库方言（bun 适配在 contrib，其他自带）。
 - 不做跨进程事件/分布式（outbox 在路线图，跨进程 bus 用 lynx watermill）。
 - 根包无租户预设（软多租户横切约定见 lynx-mods ADR）。

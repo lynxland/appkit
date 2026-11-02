@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/lynxland/appkit/clock"
-	grpcapiinterceptor "github.com/lynx-go/grpcapi/interceptor"
-	"github.com/lynx-go/grpcapi/principal"
+	grpcapiinterceptor "github.com/lynxland/grpcapi/interceptor"
+	"github.com/lynxland/grpcapi/principal"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"

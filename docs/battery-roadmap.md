@@ -62,7 +62,7 @@ hermetic 夹具（temp 真库+假时钟）、**bunx.Upsert ✅ v0.6.2**（ON CON
 重试/断路器（lynx client/http）、生命周期/健康/排水（lynx）、选主
 （lynx contrib/cluster）、跨进程 bus（lynx contrib/watermill）、
 csrf/cors/SSE/WS/OpenAPI（grpcapi）、配置加载（lynx+configkit）、
-DI（手写装配，ADR-0005）、CLI 框架（lynx-go/commands，peer——归属
+DI（手写装配，ADR-0005）、CLI 框架（lynxland/commands，peer——归属
 revisit：若 appkit 应用 CLI 供给链成型再议并入）。
 
 ## 明确不上提（项目特有）

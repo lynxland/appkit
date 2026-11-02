@@ -11,10 +11,10 @@ import (
 	"sort"
 
 	"github.com/lynxland/appkit"
-	grpcapiauthn "github.com/lynx-go/grpcapi/authn"
-	grpcapiauthz "github.com/lynx-go/grpcapi/authz"
-	grpcapiinterceptor "github.com/lynx-go/grpcapi/interceptor"
-	grpcapipolicy "github.com/lynx-go/grpcapi/policy"
+	grpcapiauthn "github.com/lynxland/grpcapi/authn"
+	grpcapiauthz "github.com/lynxland/grpcapi/authz"
+	grpcapiinterceptor "github.com/lynxland/grpcapi/interceptor"
+	grpcapipolicy "github.com/lynxland/grpcapi/policy"
 )
 
 // DefaultChain 构建「标准链 + 模块贡献 Stage」。无 Stage 时返回

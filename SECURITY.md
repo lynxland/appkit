@@ -9,7 +9,7 @@
 ## 支持范围
 
 - 本仓（appkit 核心 + contrib 子模块）的全部代码。
-- 模块源码（lynx-go/lynx-mods 的 registry 内容）的安全公告走该仓的
+- 模块源码（lynxland/lynx-mods 的 registry 内容）的安全公告走该仓的
   advisories 通道（`registry/advisories.json` + `lynx-mods audit`）。
 
 ## 供应链

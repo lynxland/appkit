@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/fs"
 
-	"github.com/lynx-go/grpcapi/server"
+	"github.com/lynxland/grpcapi/server"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

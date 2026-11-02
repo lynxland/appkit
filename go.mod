@@ -3,11 +3,12 @@ module github.com/lynxland/appkit
 go 1.26.8
 
 require (
-	github.com/lynx-go/grpcapi v0.4.0
-	github.com/lynx-go/lynx v1.20.0
-	github.com/lynx-go/lynx/contrib/schedule v1.7.0
+	github.com/lynxland/grpcapi v0.5.0
+	github.com/lynxland/lynx v1.21.0
+	github.com/lynxland/lynx/contrib/schedule v1.21.0
 	github.com/pressly/goose/v3 v3.29.0
 	golang.org/x/crypto v0.58.0
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8
 	google.golang.org/grpc v1.84.0
 	google.golang.org/protobuf v1.36.12
 )
@@ -27,8 +28,8 @@ require (
 	github.com/go-viper/mapstructure/v2 v2.5.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0 // indirect
-	github.com/lynx-go/grpcapi/genproto v0.3.0 // indirect
-	github.com/lynx-go/lynx/contrib/cluster v1.0.0 // indirect
+	github.com/lynxland/grpcapi/genproto v0.4.0 // indirect
+	github.com/lynxland/lynx/contrib/cluster v1.21.0 // indirect
 	github.com/mfridman/interpolate v0.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.4.3 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
@@ -55,5 +56,4 @@ require (
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20261005182115-fad411399dd8 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8 // indirect
 )

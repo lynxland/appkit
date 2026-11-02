@@ -2,7 +2,7 @@
 
 本仓是 **lynx 框架的 web 开发基础库**（契约 + 电池 + contrib 适配）。
 模块与 registry 的贡献指南已随分发迁移至
-[lynx-go/lynx-mods](https://github.com/lynx-go/lynx-mods) 的 CONTRIBUTING。
+[lynxland/lynx-mods](https://github.com/lynxland/lynx-mods) 的 CONTRIBUTING。
 
 ## 电池准入三件套（ADR-0009 D13）
 

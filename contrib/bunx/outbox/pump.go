@@ -8,7 +8,7 @@ import (
 
 	"github.com/lynxland/appkit/outbox"
 	"github.com/lynxland/appkit/periodic"
-	"github.com/lynx-go/lynx"
+	"github.com/lynxland/lynx"
 )
 
 // PumpOptions 是泵配置。

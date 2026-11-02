@@ -5,8 +5,8 @@ import (
 
 	"github.com/lynxland/appkit/events"
 	"github.com/lynxland/appkit/uow"
-	"github.com/lynx-go/lynx"
-	"github.com/lynx-go/lynx/eventbus"
+	"github.com/lynxland/lynx"
+	"github.com/lynxland/lynx/eventbus"
 )
 
 // Deps 是应用基础层提供给每个模块的共享依赖：数据库连接、工作单元、

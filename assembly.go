@@ -1,11 +1,11 @@
 package appkit
 
 import (
-	"github.com/lynx-go/grpcapi/authn"
-	"github.com/lynx-go/grpcapi/interceptor"
-	"github.com/lynx-go/grpcapi/server"
-	"github.com/lynx-go/lynx"
-	"github.com/lynx-go/lynx/contrib/schedule"
+	"github.com/lynxland/grpcapi/authn"
+	"github.com/lynxland/grpcapi/interceptor"
+	"github.com/lynxland/grpcapi/server"
+	"github.com/lynxland/lynx"
+	"github.com/lynxland/lynx/contrib/schedule"
 )
 
 // Assembly 是模块的动态装配产物：需要构造依赖图才能产生的贡献面。

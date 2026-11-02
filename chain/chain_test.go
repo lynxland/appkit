@@ -7,9 +7,9 @@ import (
 
 	"github.com/lynxland/appkit"
 	"github.com/lynxland/appkit/chain"
-	grpcapiauthn "github.com/lynx-go/grpcapi/authn"
-	grpcapiinterceptor "github.com/lynx-go/grpcapi/interceptor"
-	grpcapipolicy "github.com/lynx-go/grpcapi/policy"
+	grpcapiauthn "github.com/lynxland/grpcapi/authn"
+	grpcapiinterceptor "github.com/lynxland/grpcapi/interceptor"
+	grpcapipolicy "github.com/lynxland/grpcapi/policy"
 	"google.golang.org/grpc"
 )
 

@@ -5,7 +5,7 @@ _（每个术语附英文对照；English readers: the italic line under each te
 
 > **2026-10-31 起（ADR-0009）**：本仓转型「lynx 框架的 web 开发基础库」。电池术语继续有效；
 > 模块分发侧术语（Module/Registry/Item/App Manifest/Scaffold 等）的事实源随迁移转至
-> **lynx-go/lynx-mods 的 GLOSSARY**——本文件保留它们作为历史对照，不再更新。
+> **lynxland/lynx-mods 的 GLOSSARY**——本文件保留它们作为历史对照，不再更新。
 >
 > **2026-11-02 起（ADR-0010）**：项目更名 **appkit**（module `github.com/lynxland/appkit`，
 > 根包名同步 `kernel` → `appkit`）。「Kernel」术语退役，由「appkit（根包）」接替。

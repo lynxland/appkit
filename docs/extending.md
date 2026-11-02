@@ -45,7 +45,7 @@ appkit 带偏向（proto-first API 面、bun 首选、goose 迁移、AIP 风格
 ## 自建模块分发
 
 appkit 只定义契约；模块分发（registry/add/update）是姊妹项目
-**lynx-go/lynx-mods**。registry 是 git 协议：`--registry` 接受任意 git
+**lynxland/lynx-mods**。registry 是 git 协议：`--registry` 接受任意 git
 URL（https/git@/ssh/file），第三方可自建私有 registry，模块经
 kernelConstraint 声明对契约版本的约束。
 

@@ -19,7 +19,7 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/lynx-go/lynx"
+	"github.com/lynxland/lynx"
 )
 
 // Periodic 是周期作业。零值不可用，经 New 构造。

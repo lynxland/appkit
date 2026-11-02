@@ -4,7 +4,16 @@ appkit（v0.5.0 起为仓库根 module；v0.7.0 前名 lynx-start，module path
 `github.com/lynx-go/lynx-start`）对外做 semver 承诺:破坏性变更升主版本
 (0.x 阶段升 minor),向后兼容追加升 patch。条目按发布时间倒序。
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
-tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynx-go/lynx-mods。
+tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynxland/lynx-mods。
+
+## v0.8.0（2026-11-02）
+
+- **依赖随 GitHub 机构更名 lynx-go → lynxland 迁移**：require 抬到
+  `github.com/lynxland/lynx v1.21.0`（含 schedule/cluster contrib）、
+  `github.com/lynxland/grpcapi v0.5.0`（genproto v0.4.0）。API 面零变化。
+- 同批：README/CONTRIBUTING/SECURITY/GLOSSARY/extending/battery-roadmap
+  等活文档与 CI 注释的组织名引用更新；LICENSE 版权行 lynx-go → lynxland；
+  ADR/UPGRADING/CHANGELOG 历史记录按既定政策保留旧名。
 
 ## contrib/bunx v0.4.0（2026-11-02）
 

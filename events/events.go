@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lynx-go/lynx/eventbus"
+	"github.com/lynxland/lynx/eventbus"
 )
 
 // NameRe 约束事件名形态：小写段以点分隔，首段是模块名。
