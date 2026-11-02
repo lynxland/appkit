@@ -7,7 +7,7 @@
 # 编译器、代码生成器与 linter 的可复现性。任务统一以 sh -e 执行。
 
 [tools]
-go = "1.26.8"              # go.work 与各 go.mod 的 `go` 指令上限
+ go.work 与各 go.mod 的 `go` 指令上限# go.work 与各 go.mod 的 `go` 指令上限
 golangci-lint = "2.12.2"   # 与 torchwood 同款已验证版本
 
 [task_config]
