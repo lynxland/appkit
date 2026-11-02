@@ -33,9 +33,17 @@ func TestPeriodicTicksAndStops(t *testing.T) {
 	if n < 3 {
 		t.Fatalf("ticks = %d, want >= 3", n)
 	}
-	time.Sleep(30 * time.Millisecond)
-	if after := ticks.Load(); after != n {
-		t.Fatalf("ticked after cancel: %d -> %d", n, after)
+	// WithoutCancel 语义（见 TestPeriodicShutdownDoesNotCutInFlight）：cancel
+	// 落在 fn 执行窗口内时，在途轮次仍会完成本次 Add——至多 +1；其后调度
+	// 停止，计数必须稳定（60ms ≥ 2 个完整间隔，40ms 复核窗）。
+	time.Sleep(60 * time.Millisecond)
+	after := ticks.Load()
+	if after > n+1 {
+		t.Fatalf("ticked more than one in-flight round after cancel: %d -> %d", n, after)
+	}
+	time.Sleep(40 * time.Millisecond)
+	if again := ticks.Load(); again != after {
+		t.Fatalf("ticks keep growing after cancel: %d -> %d", after, again)
 	}
 }
 
