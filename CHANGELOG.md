@@ -6,6 +6,12 @@ appkit（v0.5.0 起为仓库根 module；v0.7.0 前名 lynx-start，module path
 v0.5.0 前的条目是 kernel 子 module 谱系(`github.com/lynx-go/lynx-start/kernel`,
 tag `kernel/v*`);模块与 CLI 的历史 changelog 随分发迁至 lynxland/lynx-mods。
 
+## contrib/bunx v0.5.0（2026-11-02）
+
+- 依赖随 GitHub 机构更名迁 lynxland：require `github.com/lynxland/appkit v0.8.0`、
+  `github.com/lynxland/lynx v1.21.0`、`github.com/lynxland/grpcapi v0.5.0`；
+  import 路径随迁，API 面零变化。
+
 ## v0.8.0（2026-11-02）
 
 - **依赖随 GitHub 机构更名 lynx-go → lynxland 迁移**：require 抬到
